@@ -1,0 +1,70 @@
+body {
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: indigo;
+    background-color: white;
+
+}
+
+
+header,
+nav,
+main,
+footer {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+}
+
+
+
+
+
+section {
+    background-color: rgb(231, 210, 182);
+    border:1px solid rgb(84, 115, 128);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+section.main {
+    background-color: rgb(165, 236, 249);
+    border:1px solid rgb(54, 13, 84);
+    border-radius: 25px;
+    
+  
+}
+
+.flexboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 10px;
+
+
+}
+
+.column {
+    flex: 1;
+    max-width: 230px;
+    background-color: rgb(76, 79, 164);
+    border: 1px solid grey;
+    border-radius: 6px;
+    padding: 0.75rem;
+
+
+
+}
+
+
+
+
+@view-transition {
+    navigation: auto;
+
+}
+::view-transition-group(root) {
+    animation-duration: 4s;
+}
