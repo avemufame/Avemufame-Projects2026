@@ -1,0 +1,36 @@
+body {
+   
+    margin: 56px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #2C2621;
+    background-color: #f6f2ea;
+
+}
+
+
+.Fportfolio {
+    align-items: center;
+
+    max-width: 50%;
+    background-color: rgb(190, 227, 235);
+    border: 5px solid;
+    border-color: #552d0d;
+    border-radius: 10px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    
+}
+
+p {
+    background-color: rgb(147, 129, 164);
+    border: 10px solid #f6f2ea;
+    border-radius: 23px;
+
+
+}
+
+input {
+    border-radius: 10px ;
+
+}

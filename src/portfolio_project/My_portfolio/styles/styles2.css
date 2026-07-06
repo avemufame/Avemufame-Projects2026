@@ -1,4 +1,5 @@
 body {
+   
     margin:0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: #2C2621;
@@ -9,7 +10,13 @@ body {
 
 header,
 nav,
-main,
+main{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0rem;
+}
+
+
 footer {
     max-width: 1000px;
     margin: 0 auto;
@@ -28,6 +35,9 @@ h2{
 
 }
 
+
+
+
 .stop{
     position: sticky;
     top: 0;
@@ -42,7 +52,7 @@ h2{
 
     position: sticky;
     top: 0;
-    left: 12rem;
+    left: 10rem;
     width: 100%;
     height: 320px;   /* Explicit height is required for fixed spacers */
     /*z-index: 1000;*/
@@ -142,6 +152,7 @@ section {
  }
  
 
+
 .board {
     display: flex;
     flex-wrap: wrap;
@@ -212,15 +223,16 @@ section {
     display: flexbox;
     margin-left: 275px;
    
-    width: 30%;
+    width: 20%;
     /*if you chnage the size please amend the margin_top on the section.main */
   }
 
 
   .center {
     display: block;
+    margin-top: 50px;
     margin-right: 10px;
-    width: 100%;
+    width: 95%;
   }
 
 /*.carosel {

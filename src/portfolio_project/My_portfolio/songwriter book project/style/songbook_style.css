@@ -1,0 +1,157 @@
+
+        
+        html, body {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            display: flex; font-family: sans-serif;
+            background-color: #121212; color: white; overflow: hidden;
+        }
+
+        
+        /* 🌟 SCHERMATA INIZIALE (WELCOME) */
+        #welcome-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #121212;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 999;
+        }
+        .welcome-card {
+            background-color: #1a1a1a; border: 1px solid #333; border-radius: 12px;
+            padding: 40px; text-align: center; box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+            max-width: 400px; width: 100%; box-sizing: border-box;
+        }
+        .welcome-card h1 { color: #007bff; margin: 0 0 10px 0; letter-spacing: 3px; font-size: 32px; }
+        .welcome-card p { color: #888; margin: 0 0 30px 0; font-size: 14px; }
+        .welcome-buttons { display: flex; flex-direction: column; gap: 15px; }
+        .welcome-buttons button {
+            padding: 15px; font-size: 16px; font-weight: bold; color: white;
+            background-color: #2a2a2a; border: 1px solid #444; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+        }
+        .welcome-buttons button:hover { background-color: #007bff; border-color: #007bff; transform: translateY(-2px); }
+        #welcome-screen.hidden { display: none !important; }
+        
+        /* 🛠️ CONTENITORE APPLICAZIONE */
+        #app-layout { display: flex; width: 100%; height: 100%; }
+        #app-layout.hidden { display: none !important; }
+        
+        /* BARRA LATERALE */
+        .sidebar {
+            width: 80px; height: 100%; background-color: #1a1a1a;
+            display: flex; flex-direction: column; 
+            align-items: center; padding-top: 20px; 
+            gap: 15px; z-index: 10;
+        }
+        .sidebar button {
+            width: 65px; height: 65px; font-size: 11px; font-weight: bold;
+            background-color: #2a2a2a; color: white; border: none; 
+            border-radius: 8px; cursor: pointer;
+        }
+        .sidebar button:hover { background-color: #007bff; }
+        
+        #main-structure { flex: 1; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+        
+        /* 🔝 BARRA SUPERIORE (INFO CANZONE) */
+        #top-audio-bar { 
+            width: 100%; background-color: #1e1e1e; border-bottom: 2px solid #333; 
+            padding: 5px 20px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center;
+            height: 65px;
+        }
+        #app-logo { cursor:pointer;   font-size: 18px; font-weight: 900; color: #007bff; letter-spacing: 2px; flex: 1; }
+        #app-logo:hover{color: #e0e8ef;}
+    
+        #song-info-panel { display: flex; gap: 12px; align-items: center; flex: 2; justify-content: center; }
+        .info-input-group { display: flex; flex-direction: column; gap: 2px; }
+        .info-input-group label { font-size: 9px; color: #888; text-transform: uppercase; font-weight: bold; }
+        .info-input-group input, .info-input-group select {
+            background-color: #111; color: white; border: 1px solid #444; border-radius: 4px; padding: 4px 8px; font-size: 12px;
+        }
+        .info-input-group input:focus { border-color: #007bff; outline: none; }
+        #song-title-input { width: 140px; font-weight: bold; }
+        #song-bpm-input { width: 50px; text-align: center; }
+        #song-key-input { width: 70px; }
+        
+        .audio-controls { display: flex; align-items: center; gap: 15px; flex: 1; justify-content: flex-end; }
+        #audio-player { width: 220px; height: 32px; }
+        
+        /* 🛹 COSTRUTTORE AREA DI LAVORO (FLEXBOX) */
+        #workspace-container { 
+            flex: 1; width: 100%; display: flex; background-color: #121212; position: relative; overflow: hidden;
+        }
+        
+        /* 🌟 STRUTTURA DELLE ALTEZZE IN MODALITÀ STANDARD (70% sopra, 30% sotto) */
+        .layout-standard { flex-direction: column; }
+        .layout-standard #top-modules-row { height: 70%; width: 100%; display: flex; }
+        .layout-standard #tabs-section { height: 30%; width: 100%; border-top: 2px solid #333; }
+        
+        /* STRUTTURA IN MODALITÀ CENTRALE (Tutto affiancato) */
+        .layout-centrale { flex-direction: row; }
+        .layout-centrale #top-modules-row { display: contents; }
+        .layout-centrale #tabs-section { flex: 2; height: 100%; border-left: 2px solid #333; border-right: 2px solid #333; }
+        
+        /* CASSETTI VOLANTI CENTRALI (Note, Accordi, Camera) */
+        #top-modules-row { width: 100%; height: 100%; display: flex; }
+        .window {
+            flex: 1 1 0%; height: 100%; padding: 10px 15px;
+            box-sizing: border-box; background-color: #1a1a1a;
+            display: flex; flex-direction: column; border-right: 1px solid #333; overflow: hidden;
+        }
+        .window.hidden { display: none !important; }
+        .window h3 { margin: 0 0 5px 0; font-size: 13px; color: #888; text-transform: uppercase; }
+        
+        /* 🎸 STRUTTURA BLOCCO GUITAR TABS */
+        #tabs-section {
+            padding: 10px 15px; box-sizing: border-box; background-color: #161616;
+            display: flex; flex-direction: column; overflow: hidden; position: relative;
+        }
+        .tab-header { display: flex; justify-content: space-between; align-items: center; height: 25px; margin-bottom: 5px; }
+        .tab-header h5 { margin: 0; font-size: 12px; color: #aaa; letter-spacing: 1px; }
+        
+        /* Nasconde l'intestazione se la tablatura è posizionata in basso (30%) */
+        .layout-standard .tab-header { display: none !important; }
+        
+        #tab-grid-container {
+            flex: 1; width: 100%; overflow-x: auto; overflow-y: auto; 
+            background-color: #0f0f0f; border-radius: 6px; padding: 10px; box-sizing: border-box;
+        }
+        
+        .tab-row-container { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; width: max-content; min-width: 100%; }
+        .tab-block { display: grid; grid-template-rows: repeat(6, 22px); row-gap: 2px; font-family: 'Courier New', Courier, monospace; flex: 1; }
+        
+        .tab-cell {
+            display: flex; align-items: center; justify-content: center;
+            color: #444; font-weight: bold; cursor: pointer; user-select: none;
+            border-bottom: 1px solid #252525; font-size: 14px; min-width: 20px; transition: all 0.1s;
+        }
+        .string-label { color: #007bff; font-weight: bold; margin-right: 10px; border: none !important; cursor: default; }
+        .tab-cell:not(.string-label):hover { color: #fff; background-color: #007bff; border-radius: 4px; }
+        .tab-cell.has-note { color: #00ffcc; font-weight: 900; background-color: #1e3a3a; border-radius: 3px; }
+        
+        /* Tasto cancella rigo singolo */
+        .delete-row-btn {
+            background: #2a2a2a; border: 1px solid #444; color: #dc3545; font-size: 11px;
+            padding: 6px; border-radius: 4px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center;
+        }
+        .delete-row-btn:hover { background: #dc3545; color: white; border-color: #dc3545; }
+        
+        /* ➕ DROP MENU DI SELEZIONE NOTE CON IL MOUSE */
+        #tab-drop-menu {
+            position: absolute; display: none; background-color: #252525; border: 1px solid #444;
+            border-radius: 6px; box-shadow: 0px 4px 10px rgba(0,0,0,0.5); z-index: 100;
+            grid-template-columns: repeat(4, 35px); gap: 4px; padding: 6px;
+        }
+        .drop-item {
+            width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;
+            background: #1a1a1a; color: white; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 13px;
+        }
+        .drop-item:hover { background: #007bff; }
+        .drop-item.clear-item { grid-column: span 4; width: auto; background: #dc3545; }
+        .drop-item.clear-item:hover { background: #bd2130; }
+        
+        textarea { flex: 1; width: 100%; background-color: #222; color: #fff; border: 1px solid #333; border-radius: 6px; padding: 10px; font-size: 15px; resize: none; box-sizing: border-box; }
+        .mini-btn { padding: 3px 8px; font-size: 11px; background: #007bff; border: none; border-radius: 4px; color: white; cursor: pointer; font-weight: bold; }
+        .mini-btn.danger { background: #dc3545; margin-left: 5px; }
+        #myCanvas { width: 100%; height: 100%; object-fit: contain; background: #000; border-radius: 6px; }
+        #rec-audio { padding: 6px 12px; font-size: 13px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; background-color: #2a2a2a; color: white; }
+        </style>
