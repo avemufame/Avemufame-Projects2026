@@ -1,0 +1,217 @@
+/* =====================================================
+   Project Tracker – Week 4 Styles
+   ===================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: #1f2933;
+  background-color: #f3f4f6;
+}
+
+/* App container centres and constrains the page width */
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+header {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin-top: 0.4rem;
+  color: #4b5563;
+}
+
+/* --------------------------------------------------
+   Navigation – preserved from Week 3
+   -------------------------------------------------- */
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #0b5ed7;
+  text-decoration: none;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+
+nav a:hover {
+  background-color: #eff6ff;
+}
+
+nav a:focus {
+  outline: 2px solid #0b5ed7;
+  outline-offset: 2px;
+}
+
+main {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* General page section – white card, matches Week 3 visual design */
+.page-section {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.page-section h2 {
+  margin-top: 0;
+}
+
+/* --------------------------------------------------
+   Board layout
+   -------------------------------------------------- */
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.column {
+  flex: 1;
+  min-width: 230px;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.column h3 {
+  margin-top: 0;
+}
+
+/* --------------------------------------------------
+   Task cards
+   -------------------------------------------------- */
+
+.card {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  margin-bottom: 0.6rem;
+}
+
+.card-title {
+  margin: 0 0 0.3rem 0;
+  font-weight: bold;
+}
+
+.card-description {
+  margin: 0 0 0.4rem 0;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+.card-status {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+/* --------------------------------------------------
+   Add task controls – preserved from Week 3
+   -------------------------------------------------- */
+
+.task-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.task-controls input[type="text"] {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 1rem;
+  flex: 1;
+  min-width: 180px;
+}
+
+.task-controls input[type="text"]:focus {
+  outline: 2px solid #0b5ed7;
+  outline-offset: 1px;
+}
+
+button {
+  padding: 0.4rem 0.9rem;
+  background-color: #0b5ed7;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0a4db3;
+}
+
+button:focus {
+  outline: 2px solid #0b5ed7;
+  outline-offset: 2px;
+}
+
+.status-message {
+  color: #4b5563;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  min-height: 1.5em;
+}
+
+.task-count {
+  font-weight: bold;
+  color: #1f2933;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------
+   Footer
+   -------------------------------------------------- */
+
+footer {
+  border-top: 1px solid #d1d5db;
+  padding-top: 1rem;
+  padding-bottom: 1.5rem;
+  color: #4b5563;
+}
+
+@media (max-width: 900px) {
+  .board {
+    flex-direction: column;
+  }
+}
