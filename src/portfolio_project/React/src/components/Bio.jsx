@@ -1,22 +1,29 @@
+import { NavLink } from 'react-router-dom'
 function Bio() {
     return (
     <>
 
     <section className="bio">
-              <h2>BIOGRAFIA</h2>
-              <p>
-                Lavoro tra il digitale e le tecniche tradizionali, cercando sempre un equilibrio tra spontaneità e precisione.
-                Ero disperato sentivo le voci, ma poi ho capito che avevo solo la testa piena di personaggi e volevano solo prendere vita su carta. 
-                Un universo dove tizi usano tavolette del bagno come cappello dove esistono arachidi antropomorfe tutto sembra voler prendere vita propria tra schizzi, colori e storie. 
-                Top? oppure not top? non si sa. Di sicuro non si smette mai d’imparare ma ogni illustrazione è un passo in più per dare voce a questo mondo che cresce insieme a me. 
+              <h2>Ciao! sono Avemufame</h2>
+              <p2>
+                Un illustratore che ama mescolare pixel e pigmenti.
+                Lavoro tra il digitale e le tecniche tradizionali, 
+                cercando sempre un equilibrio tra spontaneità e precisione. 
+                Ero disperato sentivo le voci, ma poi ho capito che avevo solo 
+                la testa piena di personaggi e volevano solo prendere vita su carta. 
+                Un universo dove tizi usano tavolette del bagno come cappello  
+                dove esistono arachidi antropomorfe tutto sembra voler prendere vita propria tra schizzi,
+                colori e storie.  Top? oppure not top? non si sa. Di sicuro non si smette mai d’imparare ma ogni illustrazione
+                è un passo in più per dare voce a questo mondo che cresce insieme a me. 
                 Se sei curioso trova il QR code e visita il mio sito.
-              </p>
+              </p2>
 
-              <nav className="sub-nav">
+              <nav2 className="sub-nav">
                 <ul>
-                  <li><a href="about.html">Learn More</a></li>
+                  <li><NavLink to="/Portfolio">Learn More</NavLink></li>
+                  
                 </ul>
-              </nav>
+              </nav2>
 
             
             </section>
@@ -28,4 +35,4 @@ function Bio() {
 
 
 
-export default Bio
+export default Bio;

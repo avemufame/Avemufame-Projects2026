@@ -1,42 +1,66 @@
 import React, { useState } from 'react';
-import Header from './components/Header'
-import Fportfolio from './components/Fportfolio'
-import Header from './components/Product'
-import Bio from './components/Bio'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PortfolioPage from './pages/Portfoliopage';
+import Contactpage from './pages/Contactpage';
+import Homepage from './pages/Homepage'; 
+import Header from './components/Header';
 
-import './styles/styles2.css'; //  stili CSS
+import './styles/styles2.css'; //  stili CSS;
+
+
+const modules = import.meta.glob(
+  './assets/gallery/*.{jpg,jpeg,png,webp}', {eager: true});
+const globalPortfolioItems  = Object.entries(modules).map(([filePath, moduleValue], index) =>{
+  const fileNameWithExt = filePath.split('/').pop();
+  const cleanTitle = fileNameWithExt.split('.').shift().replace(/[_-]/g,'');
+  if(!moduleValue?.default) return null;
+
+  return (
+    {
+    id: `auto-${index}`,
+    src: moduleValue.default,
+    title: cleanTitle
+    
+  }
+  
+  );
+  }
+  
+  ).filter(Boolean);
+
+
 
 function App() {
  
   return (
     <>
+
+
+     <BrowserRouter>
       
       <Header />
       
 
-      <main>
-        <section className="main">
-          <div className="board">  
+        <main>
 
-          <Bio /> 
-           
-
-            <section className="img_bio"> 
-              <img src="/public/picture/1.png" width="300" alt="bio presentation" className="center" />
-            </section>
-          </div>  
-
-          <div id="boards2" className="board2"> 
-
-          <Fportfolio />
-          <Productboard />
-
-         
-          </div>
-
+      
+        
+          <Routes>
           
-        </section>
+
+
+          <Route path="/" element={<Homepage />} />
+          <Route path="/Portfolio" element={<PortfolioPage  items={globalPortfolioItems} />} />
+          <Route path="/Contact" element={<Contactpage />} />
+          
+         
+          </Routes>
+          
+          
+        
+       
       </main>
+      </BrowserRouter>
 
       <footer>
         <img src="/public/picture/afoot.png" width="80" height="80" alt="art footer icon" />
