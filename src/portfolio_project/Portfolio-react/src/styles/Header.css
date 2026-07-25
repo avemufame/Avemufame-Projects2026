@@ -1,0 +1,64 @@
+
+
+
+/* =========================================================================
+   1. BASE STYLES (Your default big layout when at the top of the page)
+   ========================================================================= */
+
+   .navfixed {
+
+    position: sticky;
+    /* background-color: rgb(190, 227, 235); remove to get transparency*/
+    top: 0;
+    left: 1rem;
+    width: 100%;
+    height: 250px;   /* Explicit height is required for fixed spacers */
+    z-index: 1000;
+}
+
+    
+    /* Smooth transition engine for height and layout structure changes */
+    transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease;
+  }
+  
+
+  
+
+
+  
+
+  
+
+  
+  
+  /* =========================================================================
+     2. SCROLL SHRUNK STYLES (Triggers automatically as you slide down)
+     ========================================================================= */
+  
+  .navfixed.shrunk {
+    height: 65px; /* Collapses down into a sleek, narrow top-bar menu */
+   /* flex-direction: row;  Changes the whole header framework into a side-by-side row */
+    /* Pushes image to the far left, menu links to the right */
+    padding: 0 30px;
+    box-sizing: border-box;
+  }
+  
+  .navfixed.shrunk .headerimg {
+    width: auto; /* Cancels out centering rules */
+    justify-content:space-around;
+  }
+  
+  .navfixed.shrunk .bio {
+    width: 500px; /* Scales picture down to act as a clean top-left logo icon badge */
+    
+  }
+  
+  .navfixed.shrunk .centerHeader {
+    
+    border-radius: 6px; /* Smoothly transitions into square styling borders on top-left */
+  }
+  
+  .navfixed.shrunk ul {
+    margin: 0; /* Remaps links alignment vertically inside the narrow navigation line bar */
+  }
+  

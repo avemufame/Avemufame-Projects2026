@@ -1,0 +1,134 @@
+/* Reset & Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 2rem;
+}
+
+
+.portfolio-grid {
+
+    column-count: 4;
+    column-gap: 1.5rem;
+  }
+  
+  .grid-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem; /* Acts as the row gap */
+  }
+  
+  .grid-item img {
+    width: 100%;
+    
+    height: auto; /* Keeps original aspect ratio */
+    display: block;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+  }
+
+
+
+.grid-item img:hover {
+    transform: scale(1.10);
+}
+
+figcaption {
+    text-align: center;
+    width: 100%;
+      
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: rgb(102, 102, 102);
+}
+
+
+
+
+
+/* 1. Hide the lightbox by default */
+.lightbox {
+    /*display: none; */
+    display: flex; /* Always display flex, but hide it visually */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(68, 37, 62, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+     /* Hiding mechanics */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Prevents clicking links inside while hidden */
+  
+    /* Smooth transition for fade effect */
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  
+
+  
+  /* 3. Style the modal content window */
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 80%;
+
+     /* Start slightly scaled down */
+    transform: scale(0.85);
+    transition: transform 0.8s ease;
+  }
+
+
+
+
+    /* 2. Show the lightbox ONLY when it is targeted in the URL */
+.lightbox:target {
+    /* display: flex; */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* Re-enable clicks when visible */
+    }
+  
+
+ /* 4. Zoom the image to full size when parent is targeted */
+.lightbox:target .lightbox-content {
+    transform: scale(1.13);
+  }
+
+
+
+
+  .lightbox-content img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+  } 
+  
+  /* 4. Invisible link that covers the whole background to close on click */
+  .close-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+  }
+  
+  /* 5. The visible 'X' close button */
+  .close-btn {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: #fff;
+    font-size: 35px;
+    text-decoration: none;
+  }

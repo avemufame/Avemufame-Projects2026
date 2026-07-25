@@ -1,0 +1,114 @@
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%; /* Spans the full available line width */
+    margin: 0 auto;
+    padding: 40px 0 20px 0;
+    cursor: grab;
+    touch-action: pan-y;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    box-sizing: border-box;
+  }
+  
+  .carousel-slide {
+    /* FIX: Splitting the 100% line width by 4 to display 4 pictures at once */
+    width: calc(100% / 4); 
+    min-width: calc(100% / 4);
+    flex-shrink: 0;
+
+    padding: 0 8px; /* Adds clean spacing gaps between the small items */
+    box-sizing: border-box;
+  }
+  
+  /* Internal wrapper to apply rounded edges and shadows to individual items */
+  .image-wrapper {
+    position: relative;
+    width: 80%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(233, 233, 37, 0.15);
+  }
+  
+.carousel-container.grabbing {
+  cursor:grabbing;
+}
+
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+
+  }
+  
+  .carousel-caption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(51, 54, 58, 0.8));
+    padding: 15px 10px 10px 10px;
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  
+
+  .carousel-caption h3 {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 1rem; /* Smaller typography to suit small image frames */
+    font-weight: 500;
+  }
+  
+  .carousel-dots {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+  }
+  
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.25); /* Darkened to be visible below cards */
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .dot.active {
+    background: #fbfbfb;
+    transform: scale(1.2);
+  }
+  
+  /* RESPONSIVE DESIGN: Shrink down smoothly on mobile layouts */
+  @media (max-width: 768px) {
+    .carousel-slide {
+      width: calc(100% / 2); /* Show 2 pictures at once on tablets */
+      min-width: calc(100% / 2);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .carousel-slide {
+      width: 100%; /* Show 1 picture at once on small smartphones */
+      min-width: 100%;
+    }
+  }
+  
