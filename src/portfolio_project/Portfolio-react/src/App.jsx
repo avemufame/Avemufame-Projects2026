@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import PortfolioPage from './pages/Portfoliopage';
 import Contactpage from './pages/Contactpage';
 import Homepage from './pages/Homepage'; 
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 import './styles/styles2.css'; //  stili CSS;
 
@@ -36,7 +37,7 @@ function App() {
     <>
 
 
-     <BrowserRouter>
+     <HashRouter>
       
       <Header />
       
@@ -60,12 +61,14 @@ function App() {
         
        
       </main>
-      </BrowserRouter>
+      </HashRouter>
+      
+      <Footer />
 
-      <footer>
-        <img src="/public/picture/afoot.png" width="80" height="80" alt="art footer icon" />
-        <p>Artist &copy; Mr name</p>
-      </footer>
+    
+       
+        
+     
     </>
   );
 }
