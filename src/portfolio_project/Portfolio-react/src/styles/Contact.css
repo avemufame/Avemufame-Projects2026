@@ -60,7 +60,6 @@
 
   .immagine-mail {
     display: block;
-
     max-width: 80%;
     margin-top:  -140px !important;
     margin-left: 110px;
@@ -184,10 +183,39 @@
   @media (max-width: 768px) {
     .contact-layout {
       flex-direction: column; /* Stacks columns vertically on mobile screens */
-      gap: 40px;
-      margin: 20px auto;
+      gap: 35px;
+      padding: 0 0px;
+      width: 100%;
+      box-sizing: border-box;
+      align-items: center;
     }
     
+
+    .custom-form {
+    width: 100% !important;
+    max-width: 450px;       /* Keeps the form from looking too stretched out on wider phones */
+    margin: 0 auto !important; /* Forces perfect left and right alignment balancing */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+
+  .custom-form button,
+  .status-log {
+    text-align: center;
+    width: 100%;
+  }
+
+    .immagine-mail {
+      
+      max-width: 80%;
+      margin-top: -60px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      display: block;
+  
+    }
     .contact-details h2 {
       font-size: 1.75rem;
     }

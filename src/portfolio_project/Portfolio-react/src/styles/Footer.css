@@ -81,10 +81,39 @@
     .footer-content {
       flex-direction: column;
       gap: 15px;
+      text-align: center;
+      align-items: center;
     }
     .footer-left {
       flex-direction: row;
       justify-content: content;
+      width: 100%;
     }
+
+
+  /* Converts the subscription box to a neat vertical column array */
+  .footer-subscribe {
+    flex-direction: column; 
+    align-items: center;
+    width: 100%;
+    max-width: 320px; /* Prevents input strips from getting awkwardly wide */
+    gap: 12px;        /* Spacing gap between the input block and your button */
+    margin: 0 auto;
+  }
+
+  /* Ensures the input strip spans full responsive parameters inside the boundary */
+  .footer-subscribe input {
+    width: 100% !important;
+    text-align: center; /* Centers the placeholder typing cursor on phone views */
+    box-sizing: border-box;
+  }
+
+  /* Centers your action submit button frame completely */
+  .footer-subscribe button {
+    width: 100% !important;
+    max-width: 200px;  /* Keeps the button frame tight and elegant on mobile layout */
+    margin: 0 auto;
+    display: block;
+  }
   }
   
