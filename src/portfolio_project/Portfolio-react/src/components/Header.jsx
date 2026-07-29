@@ -1,18 +1,33 @@
-
-import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import "../styles/Header.css"; // Ensure this matches your header's CSS path
+import React, { useState, useEffect, useRef } from "react";
 
 function Header() {
-  const [isShrunk, setIsShrunk] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Toggle shrunk state if scrolled down more than 50 pixels
-      if (window.scrollY > 50) {
-        setIsShrunk(true);
-      } else {
-        setIsShrunk(false);
+      const currentScrollY = window.scrollY;
+      
+      // 👇 IL PARAMETRO DA TOCCARE PER IL RITARDO (TOLLERANZA) 👇
+      // Cambia 20 con un numero più alto (es. 30 o 40) per ritardare ANCORA di più la scomparsa.
+      const tolerance = 25; 
+
+      // Calcola di quanti pixel si è mosso il mouse rispetto a prima
+      const diff = currentScrollY - lastScrollY.current;
+
+      // 1. Se l'utente va giù oltre i 100px totali E ha superato la soglia di tolleranza -> Nascondi
+      if (diff > tolerance && currentScrollY > 125) {
+        setIsVisible(false);
+      } 
+      // 2. Se l'utente va su oltre la soglia di tolleranza -> Mostra
+      else if (diff < -tolerance) {
+        setIsVisible(true);
+      }
+
+      // Aggiorna la posizione dell'ultimo scroll solo se il movimento è significativo
+      if (Math.abs(diff) > tolerance) {
+        lastScrollY.current = currentScrollY;
       }
     };
 
@@ -22,13 +37,12 @@ function Header() {
 
   return (
     <>
-      {/* The class changes dynamically to "navfixed shrunk" when scrolling down */}
-      <nav className={`navfixed ${isShrunk ? "shrunk" : ""}`}>
-        
-        <section className="headerimg">
-          <div className="bio">
-            <img src="/picture/Header.png" alt="Header Image" className="centerHeader" />
-          </div>
+      <nav className={`navfixed ${!isVisible ? "hide" : "show"}`}>
+        <section>
+            
+            <img src="/picture/Logo.png" alt="Header Image" className="centerHeaderleft" />
+            <img src="/picture/Titlesite.png" alt="Header Image" className="centerHeader" />
+          
         </section>
         
         <ul>
@@ -36,11 +50,9 @@ function Header() {
           <li><NavLink to="/Portfolio">Portfolio</NavLink></li>
           <li><NavLink to="/Contact">Contact</NavLink></li>
         </ul>
-        
       </nav>
     </>
   );
 }
 
 export default Header;
-

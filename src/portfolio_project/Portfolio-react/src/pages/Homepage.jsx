@@ -16,7 +16,8 @@ function Homepage({ carouselItems }) {
       </section>
     </div>  
 
-    <div id="boards2" className="board2"> 
+    <div id="boards2" className="board2">
+    <Productboard />
 
     <Fportfolio 
     carouselItems={carouselItems}

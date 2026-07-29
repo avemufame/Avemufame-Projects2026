@@ -1,268 +1,354 @@
-body {
-   
-    margin:0;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: #2C2621;
-    background-color: #f4ead7;
 
+html, body {
+  margin: 0 !important;   /* Cancella ogni margine esterno */
+  
+  width: 100% !important; /* Forza il sito a prendersi tutto lo schermo */
+  max-width: 100% !important;
+  /* Font moderno e pulito da portfolio internazionale */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2C2621;
+  background-color: #f4ead7;
+  line-height: 1.6; /* Dà aria alla lettura */
+  display: block !important;
+  padding: 0 8px !important;
 }
+
 
 
 header,
 nav,
 main{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0rem;
-  
-}
+box-sizing: border-box;
+margin: 0;
+padding: 0rem;
 
+}
 main {
   margin-top:11.5rem;
-}
+  }
+
+
 
 
 footer {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 
 }
 
 
 h2{
-  color: #2C2621;
-  text-align: center;
+color: #2C2621;
+text-align: center;
+font-size:xx-large;
+
+
+
+}
+
+
+h2 + p {
+  margin-top: 2rem; /* Aggiunge spazio solo se il paragrafo segue direttamente un H2 */
   
-  font-size:x-large ;
-
-
 }
 
 
-p2 {
-  font-weight: bold;
-  font-size: 1.5em;
-  color: rgb(0, 0, 0);
-  /* text-shadow: 0.07em 0.07em 0.05em rgb(89, 94, 229);*/
-  background-image: none;
-  background-color: transparent;
-}
 
+p {
+  /* Rimosso font-weight: bold che rendeva tutto troppo pesante */
+  font-weight: 400; 
+  font-size: 1.15rem; /* Misura perfetta per una lettura professionale */
+  color: #333333;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  line-height: 1.8; /* Distanza tra le righe ottimale per non stancare gli occhi */
+  max-width: 42em; /* Impedisce al testo di allargarsi troppo diventando illeggibile */
+  margin: 0 auto;
+}
 
 .navfixed {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 170px;   
+ 
+    padding: 0; 
+  
 
-    position: sticky;
-    /* background-color: rgb(190, 227, 235); remove to get transparency*/
-    top: 0;
-    left: 10rem;
-    width: 100%;
-    height: 305px;   /* Explicit height is required for fixed spacers */
-    z-index: 1000;
+    /* Spazio interno per distribuire logo e menu senza schiacciarli */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px 0 10px 0;
+
+    transition: transform 0.5s ease-in-out;
 }
 
+/* 👇 QUESTO CREA L'EFFETTO OPACO/SCOLORITO SOLO SULLA FOTO 👇 */
+.navfixed::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; /* Mette la foto DIETRO al logo e ai bottoni */
+  
+  /* Spostiamo qui le proprietà della tua immagine */
+  background-image: url('../assets/gallery/super-peanutpanel.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /*background-color: #f6f2ea; */
+   /* Opzionale: un leggero velo scuro o chiaro se il testo del menu non si legge bene sopra la foto */
+    /* background-color: rgba(246, 242, 234, 0.85); */
+    /* background-blend-mode: overlay; */
+  
+  /* REGOLA L'OPACITÀ: 0.4 significa 40% visibile (più abbassi il numero, più risalta il logo) */
+  opacity: 0.6; 
+  
+  /* OPZIONALE: Se vuoi aggiungere anche un leggero effetto sfocato, scommenta la riga sotto */
+  /* filter: blur(2px); */
+}
+
+.navfixed section {
+  background-color: transparent;
+  padding: 0; 
+}
+section.products{
+  width: 100%;
+  z-index: 1000;
+  height: 170px; 
+  
+  background-image: url('../assets/gallery/super-peanutpanel.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+
+/* Regoliamo la distanza della lista del menu all'interno del nuovo spazio */
 nav ul {
-    background-color: #f6f2ea; /* change color at the line in the menu*/
-    border-radius: 34px;
-    margin: 0.50rem;
-    padding: 30;
-    list-style-type: none;
-    display: flex;
-    gap: 0.50rem;
-    flex-wrap: wrap;
-  }
+  background-color: rgba(246, 242, 234, 0); /* Reso leggermente trasparente per far intravedere lo sfondo dietro */
+  border-radius: 34px;
+  margin: 0 auto;
+  padding: 6px 15px;
+  list-style-type: none;
+  display: flex;
+  gap: 0.50rem;
+  justify-content: center;
+}
 
 nav a {
-    color: #829375;
-    text-decoration: none;
-    padding: 0.3rem 0.55rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    background-color: #ffffff;
-  }
-  
-nav a:hover {
-    background-color: #d8e1ee;
-  }
-  
-nav a:focus {
-    outline: 2px solid #0b5ed7;
-    outline-offset: 2px;
-  }
-  
-nav a.current {
-    background-color: #aecffa;
-    color: #b18959df;
-
+  color: #829375;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px; /* Bordi arrotondati stile pillola, molto moderno */
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
 }
+
+nav a:hover {
+  background-color: #829375;
+  color: #ffffff;
+  border-color: #829375;
+}
+
+nav a.current {
+  background-color: #aecffa;
+  color: #2C2621;
+  border-color: #aecffa;
+}
+
+
+nav a:focus {
+  outline: 2px solid #0b5ed7;
+  outline-offset: 2px;
+}
+
+
+
 
 nav2 ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    border-radius: 34px;
-    margin: 1rem;
-    padding: 30;
-    list-style-type: none;
-    display: flex; 
-  }
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 34px;
+  margin: 1rem;
+  padding: 30;
+  list-style-type: none;
+  display: flex; 
+}
 
 nav2 a {
-    color: #829375;
-    text-decoration: none;
-    padding: 0.3rem 0.55rem;
-    border: 2px solid #cbd5e1;
-    border-radius: 4px;
-    
-  }
+  color: #829375;
+  text-decoration: none;
+  padding: 0.3rem 0.55rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 4px;
   
-nav2 a:hover {
-    background-color: #d8e1ee;
-  }
-  
-nav2 a:focus {
-    outline: 2px solid #0b5ed7;
-    outline-offset: 2px;
-  }
-
-p{
-    align-items: center;
-
 }
+
+nav2 a:hover {
+  background-color: #d8e1ee;
+}
+
+nav2 a:focus {
+  outline: 2px solid #0b5ed7;
+  outline-offset: 2px;
+}
+
+
 
 
 section {
-        max-width: 100%;
-        background-color: #f6f2ea;
-        border:0px solid rgb(84, 115, 128);
-        border-radius: 1px;
-        padding: 1rem;
-    }
+      max-width: 100%;
+      background-color: #f6f2ea;
+      border:0px solid rgb(84, 115, 128);
+      border-radius: 1px;
+      padding: 1rem;
+  }
 
-
-
- section.main {
-        margin-top: -110px;
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 100%;
-        background-color: rgb(255, 255, 255);
-        border:0px solid rgb(54, 13, 84);
-        border-radius: 10px;
-
- }
- 
-
-
-.board {
+  section.main {
+    margin-top: -180px; /* La tua esatta sovrapposizione originale */
     display: flex;
     flex-wrap: wrap;
     max-width: 100%;
-    border:0px ;
+    background-color: rgb(255, 255, 255);
+    border: 0px solid rgb(54, 13, 84);
     border-radius: 10px;
-    padding: 0.1px;
+    padding: 1rem;
+}
+
+
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  border:0px ;
+  border-radius: 10px;
+  padding: 0.1px;
 
 
 }
 
 .bio {
-    background-color:#f6f2ea;
-    
-    flex: 1;
-    max-width: 100%;
-    border:0px ;
+  background-color:#f6f2ea;
+  flex: 1;
+  max-width: 100%;
+  border:0px ;
 }
 
 .headerimg{
-    flex: 1;
-    max-width: 100%;
-    border:0px ;
-    background-color: rgb(255, 255, 255);
-    
-    
+  flex: 1;
+  max-width: 100%;
+  border:0px ;
+  background-color: rgb(255, 255, 255);  
+  
+  
 }
 
 .board2 {
 
-   
-    flex-grow: 1;
-    border:0px ;
-    border-radius: 10px;
-    padding: 0.1px;
-  
+ 
+  flex-grow: 1;
+  border:0px ;
+  border-radius: 10px;
+  padding: 0.1px;
+
 
 }
 
 .Fportfolio {
-   
-    max-width: 100%;
-    background-color: rgb(190, 227, 235);
-    border:0px ;
-    border-radius: 10px;
-    margin-top: 1rem;
-    margin-bottom: 0.23rem;
+ 
+  max-width: 100%;
+  background-color: rgb(190, 227, 235);
+  border:0px ;
+  border-radius: 10px;
+  margin-top: 1rem;
+  margin-bottom: 0.23rem;
+
   
-    
 }
 
 
 
 .products {
-    flex: 1;
-    max-width: 100%;
-    border:0px ;
-    margin-top: 0.75rem;
+  flex: 1;
+  max-width: 100%;
+  border:0px ;
+  margin-top: 0.75rem;
 
-   
-    
-   
+ 
+  
+ 
 }
 .img_bio {
-    flex: 1;
-    max-width: 25%;
-    border:0px ;
-    
-    
+  flex: 1;
+  max-width: 25%;
+  border:0px ;
+  
+  
 }
 
+
+.centerHeaderleft {
+  display: block;
+ /* margin: -25px auto;  */     
+  /* 👇 3. RIMPICCIOLIAMO IL LOGO PER FARLO STARE NEL NUOVO BOX STRETTO */
+  width: 130px; /* Ridotto dal 25% a una misura fissa più equilibrata */
+  max-width: 70%; 
+  /* 👇 AGGIUNGE L'OMBRA AL LOGO 👇 */
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.76));   
+  margin-top: -20px;  
+}
 
 .centerHeader {
-    display: flexbox;
-    margin-left: 0;
-    width: 50%;
-    /*if you chnage the size please amend the margin_top on the section.main */
-  }
-
-
-  .center {
-    display: block;
-    margin-top: 50px;
-    margin-right: 10px;
-    width: 95%;
-  }
-
-
-  .center_portfoliocarosel {
-
-    display: flex;
-    margin: 50px auto 0 auto;
-    width: 10%;
-  }
-
-
-
-
-
-
-
-
-
-
-
-@view-transition {
-    navigation: auto;
+  margin: -150px auto;
+  display: block;  
+/* 👇 3. RIMPICCIOLIAMO IL LOGO PER FARLO STARE NEL NUOVO BOX STRETTO */
+  width: 275px; /* Ridotto dal 25% a una misura fissa più equilibrata */
+  max-width: 50%; 
+  /* 👇 AGGIUNGE L'OMBRA AL LOGO 👇 */
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5));   
 
 }
-::view-transition-group(root) {
-    animation-duration: 2s;
+
+.center {
+  display: block;
+  margin-top: 50px;
+  margin-right: 10px;
+  width: 95%;
 }
+
+
+.center_portfoliocarosel {
+
+  display: flex;
+  margin: 50px auto 0 auto;
+  width: 10%;
+}
+
+
+/* 👇 INCOLLA QUESTE RIGHE IN FONDO AL FILE 👇 */
+
+/* Quando l'utente va giù, l'header si sposta verso l'alto fuori dallo schermo */
+.navfixed.hide {
+  transform: translateY(-100%); 
+}
+
+/* Quando l'utente va su, l'header torna al suo posto originale */
+.navfixed.show {
+  transform: translateY(0);
+}
+
+
+
+

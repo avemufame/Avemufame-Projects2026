@@ -1,3 +1,4 @@
+
 import { NavLink } from 'react-router-dom'
 function Bio() {
     return (
@@ -5,7 +6,8 @@ function Bio() {
 
     <section className="bio">
               <h2>Ciao! sono Avemufame</h2>
-              <p2>
+              
+              <p>
                 Un illustratore che ama mescolare pixel e pigmenti.
                 Lavoro tra il digitale e le tecniche tradizionali, 
                 cercando sempre un equilibrio tra spontaneità e precisione. 
@@ -16,14 +18,9 @@ function Bio() {
                 colori e storie.  Top? oppure not top? non si sa. Di sicuro non si smette mai d’imparare ma ogni illustrazione
                 è un passo in più per dare voce a questo mondo che cresce insieme a me. 
                 Se sei curioso trova il QR code e visita il mio sito.
-              </p2>
+              </p>
 
-              <nav2 className="sub-nav">
-                <ul>
-                  <li><NavLink to="/Portfolio">Learn More</NavLink></li>
-                  
-                </ul>
-              </nav2>
+           
 
             
             </section>

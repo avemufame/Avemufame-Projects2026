@@ -5,8 +5,10 @@ import Contactpage from './pages/Contactpage';
 import Homepage from './pages/Homepage'; 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Aboutpage from './pages/Aboutpage';
 
 import './styles/styles2.css'; //  stili CSS;
+
 
 
 const modules = import.meta.glob(
@@ -53,6 +55,7 @@ function App() {
           <Route path="/" element={<Homepage  carouselItems={globalPortfolioItems}  />} />
           <Route path="/Portfolio" element={<PortfolioPage  items={globalPortfolioItems} />} />
           <Route path="/Contact" element={<Contactpage />} />
+          <Route path="/Aboutpage" element={<Aboutpage />} />
           
          
           </Routes>
