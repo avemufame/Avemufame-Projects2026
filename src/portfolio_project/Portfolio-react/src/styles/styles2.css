@@ -76,16 +76,16 @@ p {
   z-index: 1000;
   height: 170px;   
  
-    padding: 0; 
+  padding: 0; 
   
 
-    /* Spazio interno per distribuire logo e menu senza schiacciarli */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 15px 0 10px 0;
+  /* Spazio interno per distribuire logo e menu senza schiacciarli */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px 0 10px 0;
 
-    transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
 }
 
 /* 👇 QUESTO CREA L'EFFETTO OPACO/SCOLORITO SOLO SULLA FOTO 👇 */
@@ -99,7 +99,7 @@ p {
   z-index: -1; /* Mette la foto DIETRO al logo e ai bottoni */
   
   /* Spostiamo qui le proprietà della tua immagine */
-  background-image: url('../assets/gallery/super-peanutpanel.jpg'); 
+ background-image: url('../../public/picture/background.png'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -109,25 +109,33 @@ p {
     /* background-blend-mode: overlay; */
   
   /* REGOLA L'OPACITÀ: 0.4 significa 40% visibile (più abbassi il numero, più risalta il logo) */
-  opacity: 0.6; 
+  
   
   /* OPZIONALE: Se vuoi aggiungere anche un leggero effetto sfocato, scommenta la riga sotto */
   /* filter: blur(2px); */
+  
 }
 
 .navfixed section {
   background-color: transparent;
   padding: 0; 
 }
-section.products{
+
+
+
+section.products {
   width: 100%;
   z-index: 1000;
-  height: 170px; 
+  height: 260px;
+ 
+
   
-  background-image: url('../assets/gallery/super-peanutpanel.jpg'); 
+  background-image: url('../../public/picture/Halloween.jpg'); 
   background-size: cover;
   background-position: center;
+
   background-repeat: no-repeat;
+ /* opacity: 0.6; */
 
 }
 
@@ -299,6 +307,7 @@ section {
 }
 
 
+/* only use if you add logo  or dont use if added a background on the header*/
 .centerHeaderleft {
   display: block;
  /* margin: -25px auto;  */     
@@ -309,15 +318,15 @@ section {
   filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.76));   
   margin-top: -20px;  
 }
-
+/* only use if you add logo */
 .centerHeader {
-  margin: -150px auto;
+ /* margin: -140px auto;*/
   display: block;  
 /* 👇 3. RIMPICCIOLIAMO IL LOGO PER FARLO STARE NEL NUOVO BOX STRETTO */
-  width: 275px; /* Ridotto dal 25% a una misura fissa più equilibrata */
-  max-width: 50%; 
+  width: 2311px; /* Ridotto dal 25% a una misura fissa più equilibrata */
+  max-width: 100%; 
   /* 👇 AGGIUNGE L'OMBRA AL LOGO 👇 */
-  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5));   
+ /* filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.8));   */
 
 }
 

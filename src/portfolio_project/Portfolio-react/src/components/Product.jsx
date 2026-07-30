@@ -9,7 +9,7 @@ function Productboard() {
     <img src="/public/picture/afoot.png" width="150" alt="Product item" /> */}
               <nav className="sub-nav">
                 <ul>
-                  <li><a href="shop.html">Shop all Products</a></li>
+                {/*  <li><a href="shop.html">Shop all Products</a></li>*/}
                 </ul>
               </nav>
 

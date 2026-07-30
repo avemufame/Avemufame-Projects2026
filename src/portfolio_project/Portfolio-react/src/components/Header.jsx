@@ -39,9 +39,9 @@ function Header() {
     <>
       <nav className={`navfixed ${!isVisible ? "hide" : "show"}`}>
         <section>
-            
-            <img src="/picture/Logo.png" alt="Header Image" className="centerHeaderleft" />
-            <img src="/picture/Titlesite.png" alt="Header Image" className="centerHeader" />
+           {/* <img src="/picture/background.png" alt="Header Image" className="centerHeader" />*/}
+            {/*<img src="/picture/Logo.png" alt="Header Image" className="centerHeaderleft" />*/}
+           
           
         </section>
         
