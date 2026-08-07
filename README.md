@@ -1,27 +1,45 @@
-# 📁 Advanced React Portfolio Ecosystem
+# 📁 Creator & Developer Tooling Ecosystem
 
-Welcome to my portfolio project! This repository showcases two distinct architectures for building and managing a dynamic React portfolio application depending on your hosting and client needs.
-
-## 🚀 Repository Directory
-
-### [1. Vite Glob Version](./01-vite-glob-version)
-* **What it is:** A standard modern React + Vite application.
-* **How it works:** Uses `import.meta.glob` to dynamically scan code directories and load assets at runtime.
-* **Best for:** Personal developers who want zero manual JSON management and don't mind a quick rebuild when updating their work.
-
-### [2. JSON & Static FTP Version](./02-json-ftp-version) 🌟 (Client-Ready)
-* **What it is:** A zero-rebuild production-ready template designed to be sold to private clients.
-* **How it works:** React reads a decoupled static `portfolio.json` file inside the `public/` directory. Includes a local Node.js automation script (`generate-portfolio.js`) to parse asset directories instantly.
-* **Best for:** Non-technical clients. Allows them to drag-and-drop new images via FTP or GitHub Pages without touching application code or databases.
+Welcome to my portfolio workspace! This repository serves as a monorepo showcasing three distinct projects, ranging from production-ready portfolio architectures to advanced creative tools in active development.
 
 ---
 
-## 🛠️ How to run locally
+## 🚀 Repository Directory
 
-To test either version, open your terminal, navigate to the specific folder, and spin up the development server:
+### 📂 [1. Advanced Media Portfolio](./01-media-portfolio)
+* **What it is:** A feature-rich, high-performance portfolio application built with React and Vite.
+* **Key Features:** Fully integrated **React Router** for seamless page navigation, a responsive **Carousel slider**, and an immersive **Lightbox view** for full-screen media inspection.
+* **How it works:** Uses `import.meta.glob` to dynamically scan code directories and load static assets instantly at runtime.
+* **Best for:** Developers who want a premium, highly interactive media gallery with zero manual data management.
+
+### 📂 [2. Songwriter's Workbench (In Progress)](./02-songwriters-workbench) 🎧
+* **What it is:** A specialized layout and utility application designed to help songwriters capture raw creative inspiration before it slips away.
+* **Current Status:** Actively polishing the UI components, layout design, and core state management using temporary mock data.
+* **The Vision:** A comprehensive digital scratchpad for musicians to:
+  * Gather fragments of thoughts and lyric blocks in real-time.
+  * Record and attach temporary voice memos and scratch audio.
+  * Trim and edit recorded audio snippets natively.
+  * Record raw smartphone/webcam videos of embryonic performances to preserve chord fingerings, rhythms, and early-stage melodies.
+
+### 📂 [3. Decoupled JSON Portfolio (Coming Soon)](./03-decoupled-portfolio) 🌟
+* **What it is:** A heavily modified architectural variant of Project 1, optimized specifically as a white-label product for non-technical clients.
+* **The Strategy:** Rewriting the frontend to drop directory compilation in favour of runtime fetching from a static file. 
+* **How it will work:** A local **Node.js automation script** scans the image directory on command and generates a `portfolio.json` file inside the `public/` folder. The live React app simply fetches this JSON file at runtime.
+* **The Benefit:** Complete elimination of production build requirements. Clients can update, delete, or swap out their portfolio media via a simple FTP upload or a GitHub Pages push without ever needing to recompile the React code.
+
+---
+
+## 🛠️ Local Development & Setup
+
+To spin up and test any of these projects locally on your machine, navigate into the respective project folder from your terminal, install dependencies, and start the Vite local development server:
 
 ```bash
-cd 02-json-ftp-version
+# Example: Navigating into the Media Portfolio
+cd 01-media-portfolio
+
+# Install required packages
 npm install
+
+# Boot up the local web server
 npm run dev
 ```
