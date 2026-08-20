@@ -89,7 +89,9 @@ export default function Layout() {
 
 
           {/* 3. RIGHT SIDEBAR (The Aside Drawer) */}
+
           <AppShell.Aside p="md">
+            
         <Text fw={700} size="sm" mb="md" c="violet">SAve Open new SOng pannel </Text>
         <Text size="xs" c="dimmed" mb="sm">Save song/open song :</Text>
         <Text size="sm" fw={500}>• Working in progress</Text>
