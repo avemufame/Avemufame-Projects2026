@@ -29,17 +29,33 @@ Welcome to my portfolio workspace! This repository serves as a monorepo showcasi
 
 ---
 
+
 ## 🛠️ Local Development & Setup
 
-To spin up and test any of these projects locally on your machine, navigate into the respective project folder from your terminal, install dependencies, and start the Vite local development server:
+Since the Advanced Media Portfolio deployment pipeline is currently being finalized for production on GitHub Pages, you can easily spin up and explore all workspace environments locally.
 
-```bash
-# Example: Navigating into the Media Portfolio
-cd 01-media-portfolio
+### Prerequisites
+* Node.js (v18 or higher recommended)
+* npm (installed automatically with Node)
 
-# Install required packages
-npm install
+### Step-by-Step Installation
 
-# Boot up the local web server
-npm run dev
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com
+   cd YOUR_REPO_NAME
+   ```
+
+2. **Launch the Media Portfolio:**
+   ```bash
+   cd 01-media-portfolio
+   npm install
+   npm run dev
+   ```
+
+3. **Launch the Songbook Project & LyricFlow Workspace:**
+   ```bash
+   cd 02-songbook-app  # Replace with your actual folder name
+   npm install
+   npm run dev
+   ```
