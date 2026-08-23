@@ -95,15 +95,18 @@ npm run dev
 The application workspace is structured around a highly responsive macro-grid managed via Mantine's `AppShell`. This allows for dynamic cross-panel visibility without breaking the user layout context:
 
 ```text
-┌────────────────────────────────────────────────────────┐
-│                    AppShell.Header                     │
-├───────────────┬────────────────────────────────────────┤
-│               │                                        │
-│   AppShell    │             AppShell.Main              │
-│    .Navbar    │                                        │
-│ (Nav Links)   │   (Workspace, Cards, Lyrics & Chords)  │
-│               │                                        │
-└───────────────┴────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                            AppShell.Header                             │
+├─────────────────┬──────────────────────────────────┬───────────────────┤
+│                 │                                  │                   │
+│ AppShell.Navbar │          AppShell.Main           │  AppShell.Aside   │
+│                 │                                  │                   │
+│  (Nav Links /   │ (Workspace Panels: Lyrics Pad,   │  (Song Vault,     │
+│   Workspace)    │  Guitar Tabs & Rhyme Reference)  │   Media Drawer &  │
+│                 │                                  │   Save Actions)   │
+│                 │                                  │                   │
+└─────────────────┴──────────────────────────────────┴───────────────────┘
+
 ```
 
 ### 2. Device File System & Folder Hierarchy Blueprint
