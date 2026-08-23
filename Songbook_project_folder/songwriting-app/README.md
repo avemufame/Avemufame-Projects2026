@@ -87,9 +87,29 @@ npm run dev
 
 ---
 
-📁 Folder Hierarchy Blueprint
+---
 
+## 🏗️ Architectural Blueprints
 
+### 1. UI Layout Architecture (Mantine AppShell)
+The application workspace is structured around a highly responsive macro-grid managed via Mantine's `AppShell`. This allows for dynamic cross-panel visibility without breaking the user layout context:
+
+```text
+┌────────────────────────────────────────────────────────┐
+│                    AppShell.Header                     │
+├───────────────┬────────────────────────────────────────┤
+│               │                                        │
+│   AppShell    │             AppShell.Main              │
+│    .Navbar    │                                        │
+│ (Nav Links)   │   (Workspace, Cards, Lyrics & Chords)  │
+│               │                                        │
+└───────────────┴────────────────────────────────────────┘
+```
+
+### 2. Device File System & Folder Hierarchy Blueprint
+To prevent unorganized storage blocks, the project is architected to parse and write clean, object-isolated structures directly to the user's hard drive using browser file system sync handlers:
+
+```text
 📁 LyricFlow_Workspace/          (The Master Workspace Folder)
 ├── 📄 workspace_manifest.json  (A master index tracking ALL songs, BPMs, and titles)
 │
@@ -101,7 +121,31 @@ npm run dev
 └── 📁 Song_Rock_Anthem/         (Isolated Folder for Song #2)
     ├── 📄 project_data.json    (The JSON file for track #2)
     └── 🎵 drum_loop.mp3         (An imported audio backing track)
+```
 
+### 3. Unified Project Data Schema (JSON Spec)
+Every `project_data.json` inside individual song directories maps data objects predictably to guarantee backward compatibility during feature updates:
+
+```json
+{
+  "song_id": "song_uuid_12345",
+  "metadata": {
+    "title": "Acoustic Ballad",
+    "bpm": 72,
+    "time_signature": "4/4",
+    "musical_key": "G Major",
+    "created_at": "2026-08-23"
+  },
+  "lyrics": {
+    "raw_text": "Verse 1...\nChorus...",
+    "chords_overlay": "G - C - Em - D"
+  },
+  "media_references": [
+    { "type": "audio", "filename": "voice_memo_1.webm" },
+    { "type": "video", "filename": "fret_guide.webm" }
+  ]
+}
+```
 
 
 ## 🏗️ Project Implementation Phases
