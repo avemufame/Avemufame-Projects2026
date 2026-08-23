@@ -87,6 +87,23 @@ npm run dev
 
 ---
 
+📁 Folder Hierarchy Blueprint
+
+
+📁 LyricFlow_Workspace/          (The Master Workspace Folder)
+├── 📄 workspace_manifest.json  (A master index tracking ALL songs, BPMs, and titles)
+│
+├── 📁 Song_Acoustic_Ballad/    (Isolated Folder for Song #1)
+│   ├── 📄 project_data.json    (The JSON file with lyrics, chords, and timestamps)
+│   ├── 🎵 voice_memo_1.webm     (Microphone audio recorded for this song)
+│   └── 📹 fret_guide.webm       (Video notes filmed for this song)
+│
+└── 📁 Song_Rock_Anthem/         (Isolated Folder for Song #2)
+    ├── 📄 project_data.json    (The JSON file for track #2)
+    └── 🎵 drum_loop.mp3         (An imported audio backing track)
+
+
+
 ## 🏗️ Project Implementation Phases
 
 Development is structured into three distinct priority tracks:
