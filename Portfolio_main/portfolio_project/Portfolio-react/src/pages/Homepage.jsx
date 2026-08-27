@@ -1,12 +1,20 @@
+
+import { useState } from 'react';
 import Bio from '../components/Bio';
 import Fportfolio from '../components/Fportfolio';
 import Productboard from '../components/Product';
 
+
 function Homepage({ carouselItems }) {
+  
+
+
   return (
   
     <section className="main">
-    <div className="board">  
+      
+    <div className="board"> 
+     
   
     <Bio /> 
      

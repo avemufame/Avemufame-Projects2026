@@ -2,54 +2,6 @@ import Portfolio from '../components/Portfolio';
 import '../styles/altro.css'; //  stili CSS;
 
 
-/*
-const modules = import.meta.glob(
-  '/src/assets/gallery/*.{jpg,jpeg,png,webp}',
-  {eager: true
-  
-  }
-
-);
-/*
-console.log("thisis the element", modules);
-const firstKey = Object.keys(modules)[0];
-const secondKey = Object.keys(modules)[1];
-
-console.log("this is the first key element ", firstKey);
-console.log("thisis the element in module", modules[firstKey]);
-console.log("this is the second key element ", secondKey);
-console.log("thisis the  second key element in modlue element", modules[secondKey]);
-
-
-const imagesUrls = Object.values(modules).map((mod) => mod.default);
-
-console.log("clean array of images urls", imagesUrls);    
-
-
-
-  
-const portfolioItems  = Object.entries(modules).map(([filePath, moduleValue], index) =>{
-
-  const fileNameWithExt = filePath.split('/').pop();
-  const cleanTitle = fileNameWithExt.split('.').shift().replace(/[_-]/g,'');
-
-
-if(!moduleValue?.default) return null;
-
-  return (
-    {
-    id: `auto-${index}`,
-    src: moduleValue.default,
-    title: cleanTitle
-    
-  }
-  
-  );
-  }
-  
-  ).filter(Boolean); */
-  
-
 
 function PortfolioPage({ items }) {
 
@@ -59,8 +11,40 @@ function PortfolioPage({ items }) {
 
 
       <section className="main">
+
+
       <div className="board"> 
-      <h2>My Portfolio</h2>
+      
+     
+      <div style={{ 
+  marginBottom: '30px', 
+  display: 'flex', 
+  justifyContent: 'flex-start', 
+  width: '100%', 
+  gap: '20px' // Più spazio tra le parole
+}}>
+  <button 
+    style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer' }} 
+    onClick={() => setCategory('main')}
+  >
+    Main Portfolio
+  </button>
+  <button 
+    style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer' }} 
+    onClick={() => setCategory('commissions')}
+  >
+    Commissions
+  </button>
+  <button 
+    style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer' }} 
+    onClick={() => setCategory('sketches')}
+  >
+    Sketches
+  </button>
+</div>
+
+
+
       <div id="gallery" class ="portfolio-grid">
       {portfolioItems.map(function (item, index) {
       return (
