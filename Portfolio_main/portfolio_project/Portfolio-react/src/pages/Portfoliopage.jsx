@@ -1,9 +1,12 @@
+
+import React, { useState } from 'react'; 
 import Portfolio from '../components/Portfolio';
 import '../styles/altro.css'; //  stili CSS;
 
 
 
 function PortfolioPage({ items }) {
+  const [category, setCategory] = useState('main');
 
   const portfolioItems = items || [];
 
@@ -17,17 +20,17 @@ function PortfolioPage({ items }) {
       
      
       <div style={{ 
-  marginBottom: '30px', 
-  display: 'flex', 
-  justifyContent: 'flex-start', 
-  width: '100%', 
-  gap: '20px' // Più spazio tra le parole
-}}>
+          marginBottom: '30px', 
+          display: 'flex', 
+          justifyContent: 'flex-start', 
+          width: '100%', 
+          gap: '20px' // Più spazio tra le parole
+        }}>
   <button 
     style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer' }} 
     onClick={() => setCategory('main')}
   >
-    Main Portfolio
+    Portfolio
   </button>
   <button 
     style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer' }} 
@@ -41,24 +44,51 @@ function PortfolioPage({ items }) {
   >
     Sketches
   </button>
+
+  <button 
+    style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer' }} 
+    onClick={() => setCategory('products')}
+  >
+    Products
+  </button>
 </div>
 
 
+      <div id="gallery" className="portfolio-grid">
 
-      <div id="gallery" class ="portfolio-grid">
-      {portfolioItems.map(function (item, index) {
-      return (
+      {category === 'main' && (
+            <>
+              <h3>Portfolio</h3>
+              {portfolioItems.map((item, index) => (
+                <Portfolio
+                  key={item.id || index}
+                  src={item.src}
+                  title={item.title}
+                  currentIndex={index} 
+                  allImages={portfolioItems}
+                />
+              ))}
+            </>
+          )}
+      
+        {category === 'commissions' && (
+          <>
+        <h3>Commissions</h3>
+        <p>Working in Progres...</p>
+        </>
 
-    <Portfolio
-      key={item.id}
-      src={item.src}
-      title={item.title}
-      currentIndex={index} //where to start the slides
-      allImages={portfolioItems}
-    /> 
+        )}
+        
+        {category === 'sketches' &&(
+          <>
+        <h3>Sketches</h3>
+        <p>Working in Progres...</p>
+        </>
+        ) }
+   
 
-  )})
-  }
+
+  
 
         </div>
         </div>
