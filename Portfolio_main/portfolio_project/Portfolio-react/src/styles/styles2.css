@@ -67,6 +67,7 @@ p {
   line-height: 1.8; /* Distanza tra le righe ottimale per non stancare gli occhi */
   max-width: 42em; /* Impedisce al testo di allargarsi troppo diventando illeggibile */
   margin: 0 auto;
+
 }
 
 .navfixed {
@@ -358,6 +359,85 @@ section {
   transform: translateY(0);
 }
 
+@media screen and (max-width: 768px) {
 
+  /* Fixes the huge gap caused by the desktop main margin */
+  main {
+    margin-top: 0.5rem !important; /* Drastically reduces the top space on mobile */
+  }
 
+  /* 1. UNIFORM PADDING: Added .board2 so products and bio match perfectly */
+  section.main,
+  .board,
+  .board2 {
+    display: flex !important;
+    flex-direction: column !important; /* Places Bio on top and the image BELOW */
+    width: 100% !important;
+    /* Pulls the section up slightly to overlap nicely with the sticky header background */
+    margin-top: -2px !important; 
+    padding: 0.5rem !important; /* 📌 This now applies equally to bio and products */
+  }
 
+  /* 2. Allow the Bio to take up the full available width */
+  .bio {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+  }
+
+  /* 3. Container for the Bio image */
+  section.img_bio {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    display: flex !important;
+    justify-content: center; /* Centers the image container on mobile screens */
+    padding: 0 !important;
+  }
+
+  /* 4. PREVENT IMAGE DISTORTION AND STRETCHING (.gif) */
+  section.img_bio img.center {
+    width: 100% !important;
+    max-width: 300px !important; /* Prevents the image from scaling larger than 300px */
+    height: auto !important;     /* FORCES CORRECT ASPECT RATIO (stops stretching) */
+    margin: 0 auto 15px !important;   /* Centers the element horizontally */
+    display: block !important;
+  }
+  /* ==========================================================================
+     5. ENLARGED PRODUCT BANNER IMAGE (FORCED OVERRIDE)
+     ========================================================================== */
+  
+  /* Target the container parent to make sure it doesn't crush the image */
+  .board2,
+  #boards2 {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important; /* Disables flex shrinking */
+  }
+
+  /* Force the background picture to expand fully */
+  section.products {
+    display: block !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 200px !important; /* Forces the visual size increase */
+    
+    /* Crucial background parameters to make the zoom work correctly */
+    background-size: cover !important; 
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    
+    /* Resets any accidental absolute positioning or desktop restrictions */
+    position: relative !important;
+    top: 0 !important;
+  }
+
+  .navfixed::before {
+    /* Loads your special, mobile-optimized image */
+    background-image: url('../../public/picture/background-mobile.png') !important;
+    
+    /* Perfect alignment to make sure the key elements don't get cut off */
+    background-position: center center !important;
+    background-size: cover !important;
+  }
+}

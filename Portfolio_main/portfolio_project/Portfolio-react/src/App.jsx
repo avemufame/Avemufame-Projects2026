@@ -12,7 +12,7 @@ import './styles/styles2.css'; //  stili CSS;
 
 
 const modules = import.meta.glob(
-  '/public/gallery_port/*.{jpg,jpeg,png,webp}', {eager: true});
+  '/public/gallery_port/*.{jpg,jpeg,png,webp,gif}', {eager: true});
 const globalPortfolioItems  = Object.entries(modules).map(([filePath, moduleValue], index) =>{
   const fileNameWithExt = filePath.split('/').pop();
   const cleanTitle = fileNameWithExt.split('.').shift().replace(/[_-]/g,'');

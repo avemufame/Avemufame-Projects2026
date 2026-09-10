@@ -20,7 +20,7 @@ function Homepage({ carouselItems }) {
      
  
       <section className="img_bio"> 
-        <img src="picture/1.png" width="300" alt="bio presentation" className="center" />
+        <img src="picture/bio.gif" width="300" alt="bio presentation" className="center" />
       </section>
     </div>  
 

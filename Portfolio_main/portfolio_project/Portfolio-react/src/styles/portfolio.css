@@ -132,3 +132,40 @@ figcaption {
     font-size: 35px;
     text-decoration: none;
   }
+/* ==========================================================================
+   Responsive Constraints for Mobile Devices (max-width: 768px)
+   ========================================================================== */
+   @media screen and (max-width: 768px) {
+  
+    .portfolio-grid {
+      /* Forza una sola colonna: le immagini si disporranno una sotto l'altra */
+      column-count: 1 !important;
+      display: block !important;
+      width: 100% !important;
+    }
+  
+    .grid-item {
+      /* Evita che l'elemento si spezzi in modo strano durante lo scroll */
+      break-inside: avoid !important;
+      display: block !important;
+      width: 100% !important;
+      margin-bottom: 2rem !important; /* Aumenta lo spazio verticale tra una foto e l'altra */
+    }
+  
+    .grid-item img {
+      /* Forza l'immagine a prendersi tutta la larghezza dello schermo mobile */
+      width: 100% !important;
+      height: auto !important;
+    }
+  
+    /* Disabilita l'effetto hover che su mobile crea glitch grafici */
+    .grid-item img:hover {
+      transform: none !important;
+    }
+  
+    /* Impedisce alla lightbox di ingrandirsi oltre i bordi dello smartphone */
+    .lightbox:target .lightbox-content {
+      transform: scale(1) !important; 
+    }
+  }
+  

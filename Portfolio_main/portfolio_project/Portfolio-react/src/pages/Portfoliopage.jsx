@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'; 
 import Portfolio from '../components/Portfolio';
-import '../styles/altro.css'; //  stili CSS;
+import '../styles/portfolio.css'; //  stili CSS;
 
 
 
@@ -74,7 +74,10 @@ function PortfolioPage({ items }) {
         {category === 'commissions' && (
           <>
         <h3>Commissions</h3>
-        <p>Working in Progres...</p>
+ 
+        <img src="picture/bio.gif" width="300" alt="bio presentation" />
+    
+        
         </>
 
         )}
