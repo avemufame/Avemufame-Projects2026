@@ -434,10 +434,14 @@ section {
 
   .navfixed::before {
     /* Loads your special, mobile-optimized image */
-    background-image: url('../../public/picture/background-mobile.png') !important;
+    background-image: url('../../public/picture/Background-mobile.png') !important;
+    /* 2. Rimpiccoliamo l'immagine al 90% senza tagliarla */
+    background-size: 1% contain !important;
     
+    /* 3. Evitiamo che l'immagine si sdoppi se è più piccola del menu */
+    background-repeat: no-repeat !important;
     /* Perfect alignment to make sure the key elements don't get cut off */
     background-position: center center !important;
-    background-size: cover !important;
+  
   }
 }

@@ -6,13 +6,13 @@ import Langbutton from './LanguageButtons';
 
 const bioContent = {
   eng: {
-    title: '',
+    title: 'Bio',
     text: (
       <>
-        Hi! I’m aVeMuFaMe, an illustrator who loves mixing <strong>pixels and pigments</strong>, 
+        I’m <strong>aVeMuFaMe</strong>, an illustrator who loves mixing <strong>pixels and pigments</strong>, 
         constantly moving between digital and traditional mediums 
         in search of the perfect balance between spontaneity and precision.
-        <br /><br />
+      
         There was a time when I feared the worst: <strong>I was hearing voices</strong>. 
         Then I realized I wasn't going crazy—my head was just way too full of 
         characters screaming to come to life on paper. 
@@ -28,13 +28,13 @@ const bioContent = {
     ),
   },
   ita: {
-    title: 'aVeMuFaMe',
+    title: 'Bio',
     text: (
       <>
-         Ciao! Sono aVeMuFaMe, un illustratore che ama mescolare <strong>pixel e pigmenti</strong>, 
+        Sono <strong>aVeMuFaMe</strong>, un illustratore che ama mescolare <strong>pixel e pigmenti</strong>, 
         muovendosi costantemente tra digitale e tecniche tradizionali alla ricerca 
         del perfetto equilibrio tra spontaneità e precisione.
-        <br /><br />
+      
         C'è stato un momento in cui ho temuto il peggio: <strong>sentivo delle voci</strong>. 
         Poi ho capito che non stavo affatto impazzendo — avevo solo la testa troppo piena di personaggi 
         che urlavano per prendere vita sulla carta.

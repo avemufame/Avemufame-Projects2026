@@ -51,7 +51,7 @@ export default function Contact() {
 
 
         </div>
-        <img src="/picture/AristoPeanut.png"   alt="art email message" className="immagine-mail" />
+        <img src="picture/AristoPeanut.png"   alt="art email message" className="immagine-mail" />
         
       </div>
     

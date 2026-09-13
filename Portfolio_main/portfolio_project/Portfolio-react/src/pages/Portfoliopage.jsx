@@ -45,12 +45,12 @@ function PortfolioPage({ items }) {
     Sketches
   </button>
 
-  <button 
+  {/*<button 
     style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer' }} 
     onClick={() => setCategory('products')}
   >
     Products
-  </button>
+  </button>*/}
 </div>
 
 
