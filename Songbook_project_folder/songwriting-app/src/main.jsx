@@ -6,7 +6,7 @@ import { MantineProvider } from '@mantine/core'; // Import the provider
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <MantineProvider>
+     <MantineProvider defaultColorScheme="dark">
       <App />
     </MantineProvider>
   </React.StrictMode>,

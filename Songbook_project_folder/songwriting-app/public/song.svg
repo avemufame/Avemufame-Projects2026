@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" width="100%" height="100%">
+  <defs>
+    <!-- Manteniamo la magnifica sfumatura originale di Vite (Azzurro -> Viola) -->
+    <linearGradient id="SongbookGradient" x1="-.828%" x2="57.636%" y1="7.652%" y2="78.411%">
+      <stop offset="0%" stop-color="#41D1FF"></stop>
+      <stop offset="100%" stop-color="#BD34FE"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Sfondo tondo scuro per integrarsi con il Dark Theme di Mantine -->
+  <rect width="256" height="256" rx="60" fill="#1A1B1E"/>
+
+  <!-- Icona di un Canzoniere/Libro aperto stilizzato con una Nota Musicale al centro -->
+  <path fill="url(#SongbookGradient)" d="M128 50c-25-35-70-35-100-5v145c30-30 75-30 100 5 25-35 70-35 100 5V45c-30-30-75-30-100 5zm-10 85v-55h30V65h-40v70c-5-5-15-5-20 0-10 5-10 20 0 25s25 0 25-15z" transform="matrix(1.1 0 0 1.1 -12 -10)"/>
+</svg>
