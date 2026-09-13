@@ -436,7 +436,7 @@ section {
     /* Loads your special, mobile-optimized image */
     background-image: url('../../public/picture/Background-mobile.png') !important;
     /* 2. Rimpiccoliamo l'immagine al 90% senza tagliarla */
-    background-size: 1% contain !important;
+    background-size: 50% contain !important;
     
     /* 3. Evitiamo che l'immagine si sdoppi se è più piccola del menu */
     background-repeat: no-repeat !important;
