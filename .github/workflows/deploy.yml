@@ -1,0 +1,65 @@
+name: Deploy Monorepo to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        # Downgraded to Node 18 to ensure full compatibility with Vite 4
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # --- BUILD PROJECT 1: Portfolio ---
+      - name: Install & Build Portfolio
+        run: |
+          cd Portfolio_main/portfolio_project/Portfolio-react
+          npm ci
+          npm run build
+
+      # --- BUILD PROJECT 2: Songbook ---
+      - name: Install & Build Songbook App
+        run: |
+          cd Songbook_project_folder/songwriting-app
+          npm ci
+          npm run build
+
+      # --- MERGE INTO A SINGLE DEPLOYMENT FOLDER ---
+      - name: Prepare Pages Artifacts
+        run: |
+          # Use mkdir -p to safely build the entire nested folder tree at once
+          mkdir -p out/portfolio
+          mkdir -p out/songbook
+          
+          # Copy the contents (* syntax ensures you copy what is INSIDE dist)
+          cp -r Portfolio_main/portfolio_project/Portfolio-react/dist/* out/portfolio/
+          cp -r Songbook_project_folder/songwriting-app/dist/* out/songbook/
+          
+          # Create a simple landing page index at your root URL
+          echo "<h1>My 2026 Projects</h1><p><a href='./portfolio/'>Portfolio</a></p><p><a href='./songbook/'>Songwriting App</a></p>" > out/index.html
+
+      # --- UPLOAD AND DEPLOY ---
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
