@@ -1,16 +1,20 @@
-import { AppShell, Burger, Group, NavLink, Text, SimpleGrid, Card, Textarea, Badge, Code } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { AppShell,Tabs, Burger, Group, NavLink, Text, SimpleGrid, Card, Textarea, Badge, Code } from '@mantine/core';
+import { useDisclosure, useLocalStorage, useMediaQuery  } from '@mantine/hooks';
 import { useState } from 'react';
 import { Header } from './Header';
 
 export default function Layout() {
   const [opened, { toggle }] = useDisclosure();
+  const isMobile = useMediaQuery('(max-width: 768px)');
   
   // Array state managing which frames are currently visible
   const [activePanels, setActivePanels] = useState(['lyrics']); 
   
   // Simple state to hold your lyrics as you type them
-  const [lyricsText, setLyricsText] = useState('');
+  const [lyricsText, setLyricsText] = useLocalStorage({
+    key: 'songbook-lyrics',
+    defaultValue: '',
+  });
 
     // Chords variable 
     const [chords, setChords] = useState('');
@@ -36,14 +40,14 @@ export default function Layout() {
       aside={{
         width: 200,
         breakpoint: 'md', // Hides on tablets/phones to keep the screen clean
-        collapsed: { desktop: !rightOpened, mobile: !rightOpened },
+        collapsed: { desktop: !rightOpened, mobile: true },
       }}
 
 
       padding="md"
     >
       {/* 1. TOP HEADER BAR */}
-     <Header />
+     <Header opened={opened} toggle={toggle}/>
      
 
       {/* 2. SIDE MENU BAR BAR */}
@@ -107,6 +111,32 @@ export default function Layout() {
 
       {/* 3. DYNAMIC MAIN WINDOW FRAME */}
       <AppShell.Main>
+      {isMobile ? (
+          /* 📱 STRUTTURA MOBILE: Un solo pannello alla volta con le Tabs in alto o in basso */
+          <Tabs defaultValue="lyrics">
+            <Tabs.List grow>
+              <Tabs.Tab value="lyrics">📝 Lyrics</Tabs.Tab>
+              <Tabs.Tab value="tabs">🎸 Chords</Tabs.Tab>
+              <Tabs.Tab value="rhymes">📚 Rhyme</Tabs.Tab>
+              <Tabs.Tab value="rhymes">📚 Video</Tabs.Tab>
+            </Tabs.List>
+
+            <Tabs.Panel value="lyrics" pt="xs">
+              {/* Qui renderizzi solo la Card dei Lyrics */}
+            </Tabs.Panel>
+            <Tabs.Panel value="tabs" pt="xs">
+              {/* Qui renderizzi solo la Card dei Chords */}
+            </Tabs.Panel>
+            <Tabs.Panel value="rhymes" pt="xs">
+              {/* Qui renderizzi solo la Card delle Rime */}
+            </Tabs.Panel>
+          </Tabs>
+        ) : (
+          /* 💻 STRUTTURA DESKTOP: La tua griglia attuale a più pannelli */
+          <SimpleGrid cols={activePanels.length > 1 ? 2 : 1}>
+            {/* I tuoi pannelli attuali... */}
+          </SimpleGrid>
+        )}
         
         {/* SimpleGrid adjusts dynamically based on how many panels are pulled up */}
         <SimpleGrid cols={{ base: 1, md: activePanels.length > 1 ? 2 : 1 }} spacing="lg">

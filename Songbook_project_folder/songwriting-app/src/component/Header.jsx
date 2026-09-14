@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { AppShell, Group, Burger, Text, Badge, TextInput, NumberInput, Select, Button, UnstyledButton } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure,  useLocalStorage } from '@mantine/hooks';
 
-export function Header() {
-  const [opened, { toggle }] = useDisclosure();
+export function Header({ opened, toggle }) {
+  
   
   // State for your Phase 2 Data
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useLocalStorage({
+    key: 'songbook-title',
+    defaultValue: '',
+  });
   const [bpm, setBpm] = useState(120);
   const [timeSig, setTimeSig] = useState('4/4');
   const [songKey, setSongKey] = useState('E Major');
