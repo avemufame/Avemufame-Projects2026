@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { AppShell, Group, Burger, Text, Badge, TextInput, NumberInput, Select, Button, UnstyledButton } from '@mantine/core';
-import { useDisclosure,  useLocalStorage } from '@mantine/hooks';
+import { AppShell, Group, Burger, Text, TextInput, NumberInput, Select, Button, UnstyledButton, Menu, ActionIcon } from '@mantine/core';
+import { useLocalStorage } from '@mantine/hooks';
 
 export function Header({ opened, toggle }) {
-  
   
   // State for your Phase 2 Data
   const [title, setTitle] = useLocalStorage({
@@ -20,9 +19,9 @@ export function Header({ opened, toggle }) {
     const now = Date.now();
     if (lastTap > 0) {
       const diff = now - lastTap;
-      if (diff < 2000) { // Only calculate if taps are less than 2 seconds apart
+      if (diff < 2000) { 
         const calculatedBpm = Math.round(60000 / diff);
-        setBpm(Math.min(Math.max(calculatedBpm, 40), 250)); // Clamp between 40 and 250 BPM
+        setBpm(Math.min(Math.max(calculatedBpm, 40), 250)); 
       }
     }
     setLastTap(now);
@@ -34,45 +33,152 @@ export function Header({ opened, toggle }) {
 
   return (
     <AppShell.Header>
-      <Group h="100%" px="md" justify="space-between" wrap="nowrap" style={{ position: 'relative'}}>
+       {/* CSS overrides applied ONLY on mobile views */}
+       <style>{`
+        @media (max-width: 768px) {
+          .responsive-header-container {
+            flex-direction: column !important;
+            justify-content: center !important;
+            height: auto !important;
+            padding: 8px 16px !important;
+            gap: 6px !important;
+          }
+          .mobile-row-1 {
+            width: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+          }
+          .mobile-title-container {
+            position: static !important;
+            transform: none !important;
+            flex-grow: 1 !important;
+            max-width: 220px !important;
+            margin: 0 auto !important;
+          }
+          .mobile-title-container input {
+            width: 100% !important;
+            text-align: center !important;
+            font-size: 15px !important;
+          }
+          .mobile-display-row {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 10px !important;
+            border-top: 1px solid var(--mantine-color-gray-2);
+            padding-top: 6px;
+          }
+        }
+      `}</style>
+      
+      <Group className="responsive-header-container" h="100%" px="md" justify="space-between" wrap="nowrap" style={{ position: 'relative'}}>
         
-        {/* Left Section: Logo & Burger */}
-        <Group wrap="nowrap">
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          <UnstyledButton onClick={LogClick}>
-          <Text fw={800} size="lg" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} style={{ whiteSpace: 'nowrap' }}>
-            🎵 SONGBOOK Studio
-          </Text>
-          </UnstyledButton>
-        </Group>
-
-        {/* Middle Section: Dynamic Song Settings & Metadata Controls */}
-        
+        {/* ========================================== */}
+        {/* ROW 1: Mobile Menu Button (🎵 S), Center Title, & Cog Menu */}
+        {/* ========================================== */}
+        <Group className="mobile-row-1" wrap="nowrap" style={{ flexGrow: 1 }}>
           
-          {/* 1. Song Title Input */}
-          <div style={{ position: 'absolute', left: '40%', transform : 'translateX(-50%, zIndex: 1)'}}>
-          <TextInput
-            value={title}
-            onChange={(e) => setTitle(e.currentTarget.value)}
-            placeholder="Song Title"
-            variant="unstyled"
-            styles={{
-              input: {
-                fontSize: '16px',
-                fontWeight: 700,
-                borderBottom: '2px dashed var(--mantine-color-blue-light)',
-                padding: '0 4px',
-                width: '280px',
-                textAlign: 'center',
-              },
-            }}
-          />
+          {/* Left Element: Desktop-Only Burger+Logo OR Mobile-Only 🎵 S Trigger */}
+          <Group wrap="nowrap" gap="xs">
+            {/* Desktop Layout Layout (Unchanged) */}
+            <Group wrap="nowrap" gap="xs" visibleFrom="sm">
+              <Burger opened={opened} onClick={toggle} size="sm" />
+              <UnstyledButton onClick={LogClick}>
+                <Text fw={800} size="lg" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} style={{ whiteSpace: 'nowrap' }}>
+                  🎵 SONGBOOK Studio
+                </Text>
+              </UnstyledButton>
+            </Group>
+
+            {/* Mobile Layout Layout: Clicking "🎵 S" triggers the sidebar navigation layout toggle */}
+            <UnstyledButton onClick={toggle} hiddenFrom="sm" style={{ padding: '4px 0' }}>
+              <Text fw={800} size="md" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} style={{ whiteSpace: 'nowrap' }}>
+                {opened ? '❌ S' : '🎵 S'} {/* Subtle UX detail: toggles icon if layout is currently open */}
+              </Text>
+            </UnstyledButton>
+          </Group>
+
+          {/* Middle Element: Perfectly Centered Title Input (Desktop and Mobile) */}
+          <div className="mobile-title-container" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', zIndex: 1 }}>
+            <TextInput
+              value={title}
+              onChange={(e) => setTitle(e.currentTarget.value)}
+              placeholder="Song Title"
+              variant="unstyled"
+              styles={{
+                input: {
+                  fontSize: '16px',
+                  fontWeight: 700,
+                  borderBottom: '2px dashed var(--mantine-color-blue-light)',
+                  padding: '0 4px',
+                  width: '280px',
+                  textAlign: 'center',
+                },
+              }}
+            />
           </div>
           
-          {/* 2. BPM Counter & Tap Tempo Control */}
-          
-          <Group gap="xs" wrap="nowrap" justify="flex-end" style={{ transform: 'scale(0.85)', transformOrigin: 'right center' }}>
-         
+          {/* Right Element: Mobile-Only Settings Cog */}
+          <Group hiddenFrom="sm">
+            <Menu shadow="md" width={220} position="bottom-end" withArrow>
+              <Menu.Target>
+                <ActionIcon variant="subtle" color="gray" size="md">
+                  <span style={{ fontSize: '100px' }}>⚙️</span>
+                </ActionIcon>
+              </Menu.Target>
+
+              <Menu.Dropdown p="xs">
+                <Menu.Label>Edit Song</Menu.Label>
+                
+                {/* BPM Fields */}
+                <div style={{ padding: '4px 6px' }}>
+                  <Text size="xs" fw={700} c="dimmed" mb={2}>BPM</Text>
+                  <Group gap={4} wrap="nowrap">
+                    <NumberInput value={bpm} onChange={(val) => setBpm(Number(val))} min={40} max={250} size="xs" />
+                    <Button size="xs" variant="light" onClick={handleTapTempo}>Tap</Button>
+                  </Group>
+                </div>
+
+                <Menu.Divider />
+
+                {/* Time Signature */}
+                <div style={{ padding: '4px 6px' }}>
+                  <Text size="xs" fw={700} c="dimmed" mb={2}>Time Signature</Text>
+                  <Select value={timeSig} onChange={setTimeSig} data={['4/4', '3/4', '6/8', '2/4', '5/4']} size="xs" allowDeselect={false} />
+                </div>
+
+                <Menu.Divider />
+
+                {/* Key Selector */}
+                <div style={{ padding: '4px 6px' }}>
+                  <Text size="xs" fw={700} c="dimmed" mb={2}>Key</Text>
+                  <Select value={songKey} onChange={setSongKey} data={['C Major', 'G Major', 'D Major', 'A Major', 'E Major', 'A Minor', 'E Minor', 'B Minor']} size="xs" allowDeselect={false} />
+                </div>
+              </Menu.Dropdown>
+            </Menu>
+          </Group>
+
+          {/* Desktop Right Alignment Spacer */}
+          <div style={{ width: '1px' }} visibleFrom="sm" />
+        </Group>
+        
+        {/* ========================================== */}
+        {/* ROW 2: Mobile Status Labels vs Desktop Controls */}
+        {/* ========================================== */}
+        
+        {/* MOBILE VIEW TEXT LABELS */}
+        <Group className="mobile-display-row" hiddenFrom="sm">
+          <Text size="xs" fw={700} c="blue">{bpm} BPM</Text>
+          <Text size="xs" fw={600} c="dimmed">•</Text>
+          <Text size="xs" fw={700} c="indigo">{timeSig}</Text>
+          <Text size="xs" fw={600} c="dimmed">•</Text>
+          <Text size="xs" fw={700} c="cyan">{songKey}</Text>
+        </Group>
+
+        {/* UNTOUCHED ORIGINAL DESKTOP CONTROLS ROW */}
+        <Group visibleFrom="sm" gap="xs" wrap="nowrap" style={{ transform: 'scale(0.85)', transformOrigin: 'right center' }}>
           <Group gap={2} wrap="nowrap" style={{ background: 'var(--mantine-color-gray-1)', padding: '2px 6px', borderRadius: '6px' }}>
             <NumberInput
               value={bpm}
@@ -94,7 +200,6 @@ export function Header({ opened, toggle }) {
             </Button>
           </Group>
 
-          {/* 3. Time Signature Dropdown */}
           <Select
             value={timeSig}
             onChange={setTimeSig}
@@ -112,12 +217,10 @@ export function Header({ opened, toggle }) {
                 borderRadius: '6px',
                 textAlign: 'center',
                 height: '28px',
-              
               },
             }}
           />
 
-          {/* 4. Key Selector Dropdown */}
           <Select
             value={songKey}
             onChange={setSongKey}
@@ -129,7 +232,6 @@ export function Header({ opened, toggle }) {
             allowDeselect={false}
             searchable
             withCheckIcon={false}
-           
             styles={{
               input: {
                 width: '90px',
@@ -143,9 +245,6 @@ export function Header({ opened, toggle }) {
               },
             }}
           />
-        
-
-  
         </Group>
 
       </Group>
