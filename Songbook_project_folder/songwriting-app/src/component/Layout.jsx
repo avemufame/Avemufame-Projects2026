@@ -47,11 +47,19 @@ export default function Layout() {
       {/* 2. SIDE MENU BAR BAR */}
       <AppShell.Navbar p="md">
         {isMobile ? (
-          <Stack gap="xs">
-            <Text size="xs" fw={700} c="dimmed" lts="1px">SONG MANAGER</Text>
-            <Button size="xs" color="blue" onClick={() => alert('Save File')}>💾 Save Song</Button>
-            <Button size="xs" color="teal" onClick={() => alert('Open File')}>📂 Open Song</Button>
-          </Stack>
+         <Stack gap="xs">
+         <Group justify="space-between" align="center">
+           
+           <Badge size="xs" color="orange" variant="light">WIP</Badge>
+         </Group>
+         
+         <Button size="xs" color="blue" onClick={() => alert('Save File functionality coming soon!')}>
+           💾 Save Song
+         </Button>
+         <Button size="xs" color="teal" onClick={() => alert('Open File functionality coming soon!')}>
+           📂 Open Song
+         </Button>
+       </Stack>
         ) : (
           <>
             <Text size="l" fw={700} c="dimmed" mb="sm" lts="1px">Workspace</Text>
@@ -91,8 +99,9 @@ export default function Layout() {
       {/* 3. RIGHT SIDEBAR (The Aside Drawer) */}
       <AppShell.Aside p="md">
         <Text fw={700} size="sm" mb="md" c="violet">Save Open new Song panel </Text>
-        <Button size="xs" color="blue" fullWidth mb="xs" onClick={() => alert('Save File')}>💾 Save Current Song</Button>
-        <Button size="xs" color="teal" fullWidth onClick={() => alert('Open File')}>📂 Open Existing Song</Button>
+        <Badge size="xs" color="orange" variant="light">WIP</Badge>
+        <Button size="xs" color="blue" fullWidth mb="xs" onClick={() => alert('Save File functionality coming soon!')}>💾 Save Current Song</Button>
+        <Button size="xs" color="teal" fullWidth onClick={() => alert('Open File functionality coming soon!')}>📂 Open Existing Song</Button>
       </AppShell.Aside>
 
       {/* 4. DYNAMIC MAIN WINDOW FRAME */}
