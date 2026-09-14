@@ -1,5 +1,5 @@
-import { AppShell,Tabs, Burger, Group, NavLink, Text, SimpleGrid, Card, Textarea, Badge, Code } from '@mantine/core';
-import { useDisclosure, useLocalStorage, useMediaQuery  } from '@mantine/hooks';
+import { AppShell, Tabs, Burger, Group, NavLink, Text, SimpleGrid, Card, Textarea, Badge, Code, Button, Stack } from '@mantine/core';
+import { useDisclosure, useLocalStorage, useMediaQuery } from '@mantine/hooks';
 import { useState } from 'react';
 import { Header } from './Header';
 
@@ -16,11 +16,11 @@ export default function Layout() {
     defaultValue: '',
   });
 
-    // Chords variable 
-    const [chords, setChords] = useState('');
+  // Chords variable 
+  const [chords, setChords] = useState('');
 
-    // Toggle state for the right songwriter tool drawer
-    const [rightOpened, { toggle: toggleRight }] = useDisclosure();
+  // Toggle state for the right songwriter tool drawer
+  const [rightOpened, { toggle: toggleRight }] = useDisclosure();
 
   // Universal toggle function for our side menu links
   const togglePanel = (panelName) => {
@@ -30,193 +30,210 @@ export default function Layout() {
       setActivePanels([...activePanels, panelName]);
     }
   };
-
   return (
     <AppShell
       header={{ height: 100 }}
       navbar={{ width: 150, breakpoint: 'sm', collapsed: { mobile: !opened } }}
-
-      // Right Drawer Configuration
       aside={{
         width: 200,
-        breakpoint: 'md', // Hides on tablets/phones to keep the screen clean
+        breakpoint: 'md',
         collapsed: { desktop: !rightOpened, mobile: true },
       }}
-
-
       padding="md"
     >
       {/* 1. TOP HEADER BAR */}
-     <Header opened={opened} toggle={toggle}/>
+      <Header opened={opened} toggle={toggle}/>
      
-
       {/* 2. SIDE MENU BAR BAR */}
       <AppShell.Navbar p="md">
-        <Text size="l" fw={700} c="dimmed" mb="sm" lts="1px">Workspace</Text>
-        
-        <NavLink 
-          label="📝 Lyrics Pad" 
-          description="Your main writing canvas"
-          active={activePanels.includes('lyrics')} 
-          onClick={() => togglePanel('lyrics')} 
-        />
-        
-        <NavLink 
-          label="🎸 Guitar Chords & Tabs" 
-          description="Quick chord chart reference"
-          active={activePanels.includes('tabs')} 
-          onClick={() => togglePanel('tabs')} 
-        />
-        
-        <NavLink 
-          label="📚 Rhyming Dictionary" 
-          description="Find matching line endings"
-          active={activePanels.includes('rhymes')} 
-          onClick={() => togglePanel('rhymes')} 
-        />
-
-        <NavLink 
-          label="📚 atomic" 
-          description="Find mags"
-          active={activePanels.includes('atomic')} 
-          onClick={() => togglePanel('atomic')} 
-        />
-         <NavLink 
-          label="Playlist/save" 
-          description="Playlist"
-          
-          onClick={toggleRight}
-          
-        />
+        {isMobile ? (
+          <Stack gap="xs">
+            <Text size="xs" fw={700} c="dimmed" lts="1px">SONG MANAGER</Text>
+            <Button size="xs" color="blue" onClick={() => alert('Save File')}>💾 Save Song</Button>
+            <Button size="xs" color="teal" onClick={() => alert('Open File')}>📂 Open Song</Button>
+          </Stack>
+        ) : (
+          <>
+            <Text size="l" fw={700} c="dimmed" mb="sm" lts="1px">Workspace</Text>
+            <NavLink 
+              label="📝 Lyrics Pad" 
+              description="Your main writing canvas"
+              active={activePanels.includes('lyrics')} 
+              onClick={() => togglePanel('lyrics')} 
+            />
+            <NavLink 
+              label="🎸 Guitar Chords & Tabs" 
+              description="Quick chord chart reference"
+              active={activePanels.includes('tabs')} 
+              onClick={() => togglePanel('tabs')} 
+            />
+            <NavLink 
+              label="📚 Rhyming Dictionary" 
+              description="Find matching line endings"
+              active={activePanels.includes('rhymes')} 
+              onClick={() => togglePanel('rhymes')} 
+            />
+            <NavLink 
+              label="📚 Video" 
+              description="Find mags"
+              active={activePanels.includes('atomic')} 
+              onClick={() => togglePanel('atomic')} 
+            />
+            <NavLink 
+              label="Playlist/save" 
+              description="Playlist"
+              onClick={toggleRight}
+            />
+          </>
+        )}
       </AppShell.Navbar>
 
+      {/* 3. RIGHT SIDEBAR (The Aside Drawer) */}
+      <AppShell.Aside p="md">
+        <Text fw={700} size="sm" mb="md" c="violet">Save Open new Song panel </Text>
+        <Button size="xs" color="blue" fullWidth mb="xs" onClick={() => alert('Save File')}>💾 Save Current Song</Button>
+        <Button size="xs" color="teal" fullWidth onClick={() => alert('Open File')}>📂 Open Existing Song</Button>
+      </AppShell.Aside>
 
-
-          {/* 3. RIGHT SIDEBAR (The Aside Drawer) */}
-
-          <AppShell.Aside p="md">
-         
-          <>
-          <Text fw={700} size="sm" mb="md" c="violet">SAve Open new SOng pannel </Text>
-          <Text size="xs" c="dimmed" mb="sm">Save song/open song :</Text>
-          <Text size="sm" fw={500}>• Working in progress</Text>
-          <Text size="sm" fw={500}>• add the Video and audio panel or add a button on the top header </Text>
-          
-          </>
-         
-          </AppShell.Aside>
-
-
-
-
-      {/* 3. DYNAMIC MAIN WINDOW FRAME */}
+      {/* 4. DYNAMIC MAIN WINDOW FRAME */}
       <AppShell.Main>
-      {isMobile ? (
-          /* 📱 STRUTTURA MOBILE: Un solo pannello alla volta con le Tabs in alto o in basso */
+        {isMobile ? (
           <Tabs defaultValue="lyrics">
-            <Tabs.List grow>
+            <Tabs.List grow mb="md">
               <Tabs.Tab value="lyrics">📝 Lyrics</Tabs.Tab>
               <Tabs.Tab value="tabs">🎸 Chords</Tabs.Tab>
               <Tabs.Tab value="rhymes">📚 Rhyme</Tabs.Tab>
-              <Tabs.Tab value="rhymes">📚 Video</Tabs.Tab>
+              <Tabs.Tab value="atomic">📚 Video</Tabs.Tab>
             </Tabs.List>
 
             <Tabs.Panel value="lyrics" pt="xs">
-              {/* Qui renderizzi solo la Card dei Lyrics */}
+              <Card withBorder shadow="sm" radius="md" p="md">
+                <Group justify="space-between" mb="xs">
+                  <Text fw={700} size="lg">Lyrics Workspace</Text>
+                  <Badge color="gray" variant="outline">{lyricsText.split(/\s+/).filter(Boolean).length} words</Badge>
+                </Group>
+                <Textarea
+                  placeholder="Start writing your masterpiece lyrics here..."
+                  minRows={12}
+                  autosize
+                  value={lyricsText}
+                  onChange={(event) => setLyricsText(event.currentTarget.value)}
+                  styles={{ input: { fontFamily: 'inherit', fontSize: '16px', lineHeight: '1.6' } }}
+                />
+              </Card>
             </Tabs.Panel>
+
             <Tabs.Panel value="tabs" pt="xs">
-              {/* Qui renderizzi solo la Card dei Chords */}
+              <Card withBorder shadow="sm" radius="md" p="md">
+                <Text fw={700} size="lg" mb="sm">🎸 Basic Song Progressions</Text>
+                <Text size="sm" c="dimmed" mb="md">Common songwriter structural shapes:</Text>
+                <Group mb="xs">
+                  <Badge color="teal">Verse</Badge>
+                  <Text size="sm" fw={500} style={{ flex: 1 }}>
+                    <Textarea
+                      placeholder="G - C - Em - D"
+                      minRows={1}
+                      autosize
+                      value={chords}
+                      onChange={(event) => setChords(event.currentTarget.value)}
+                      styles={{ input: { fontFamily: 'inherit', fontSize: '16px', lineHeight: '1.6' } }}
+                    />
+                  </Text>
+                </Group>
+                <Group mb="lg"><Badge color="indigo">Chorus</Badge> <Text size="sm" fw={500}>C - D - G - Em</Text></Group>
+                <Code block ff="monospace" style={{ fontSize: '13px' }}>
+                  E|---3---0---0---2---|{'\n'}
+                  B|---3---1---0---3---|{'\n'}
+                  G|---0---0---0---2---|{'\n'}
+                  D|---0---2---2---0---|
+                </Code>
+              </Card>
             </Tabs.Panel>
+
             <Tabs.Panel value="rhymes" pt="xs">
-              {/* Qui renderizzi solo la Card delle Rime */}
+              <Card withBorder shadow="sm" radius="md" p="md">
+                <Text fw={700} size="lg" mb="xs">📚 Quick Rhyme Kit</Text>
+                <Text size="sm" c="dimmed" mb="md">Keep these matching sounds handy for inspiration:</Text>
+                <Text size="sm" fw={600} c="blue" mb="3px">Ending in "-ight" (Light, Night, Flight)</Text>
+                <Text size="xs" c="dimmed" mb="sm">"We walked into the neon light / chasing shadows through the night..."</Text>
+                <Text size="sm" fw={600} c="purple" mb="3px">Ending in "-ear" (Fear, Clear, Near)</Text>
+                <Text size="xs" c="dimmed">"Suddenly the path was clear / casting out our deepest fear..."</Text>
+              </Card>
+            </Tabs.Panel>
+
+            <Tabs.Panel value="atomic" pt="xs">
+              <Card withBorder shadow="sm" radius="md" p="md">
+                <Text fw={700} size="lg" mb="xs">📚 atomicamente </Text>
+                <Text size="sm" c="dimmed" mb="md">Keep these .......:</Text>
+              </Card>
             </Tabs.Panel>
           </Tabs>
         ) : (
-          /* 💻 STRUTTURA DESKTOP: La tua griglia attuale a più pannelli */
-          <SimpleGrid cols={activePanels.length > 1 ? 2 : 1}>
-            {/* I tuoi pannelli attuali... */}
+          <SimpleGrid cols={{ base: 1, md: activePanels.length > 1 ? 2 : 1 }} spacing="lg">
+            {activePanels.includes('lyrics') && (
+              <Card withBorder shadow="sm" radius="md" p="md">
+                <Group justify="space-between" mb="xs">
+                  <Text fw={700} size="lg">Lyrics Workspace</Text>
+                  <Badge color="gray" variant="outline">{lyricsText.split(/\s+/).filter(Boolean).length} words</Badge>
+                </Group>
+                <Textarea
+                  placeholder="Start writing your masterpiece lyrics here..."
+                  minRows={12}
+                  autosize
+                  value={lyricsText}
+                  onChange={(event) => setLyricsText(event.currentTarget.value)}
+                  styles={{ input: { fontFamily: 'inherit', fontSize: '16px', lineHeight: '1.6' } }}
+                />
+              </Card>
+            )}
+
+            {activePanels.includes('tabs') && (
+              <Card withBorder shadow="sm" radius="md" p="md">
+                <Text fw={700} size="lg" mb="sm">🎸 Basic Song Progressions</Text>
+                <Text size="sm" c="dimmed" mb="md">Common songwriter structural shapes:</Text>
+                <Group mb="xs">
+                  <Badge color="teal">Verse</Badge>
+                  <Text size="sm" fw={500} style={{ flex: 1 }}>
+                    <Textarea
+                      placeholder="G - C - Em - D"
+                      minRows={1}
+                      autosize
+                      value={chords}
+                      onChange={(event) => setChords(event.currentTarget.value)}
+                      styles={{ input: { fontFamily: 'inherit', fontSize: '16px', lineHeight: '1.6' } }}
+                    />
+                  </Text>
+                </Group>
+                <Group mb="lg"><Badge color="indigo">Chorus</Badge> <Text size="sm" fw={500}>C - D - G - Em</Text></Group>
+                <Code block ff="monospace" style={{ fontSize: '13px' }}>
+                  E|---3---0---0---2---|{'\n'}
+                  B|---3---1---0---3---|{'\n'}
+                  G|---0---0---0---2---|{'\n'}
+                  D|---0---2---2---0---|
+                </Code>
+              </Card>
+            )}
+
+            {activePanels.includes('rhymes') && (
+              <Card withBorder shadow="sm" radius="md" p="md">
+                <Text fw={700} size="lg" mb="xs">📚 Quick Rhyme Kit</Text>
+                <Text size="sm" c="dimmed" mb="md">Keep these matching sounds handy for inspiration:</Text>
+                <Text size="sm" fw={600} c="blue" mb="3px">Ending in "-ight" (Light, Night, Flight)</Text>
+                <Text size="xs" c="dimmed" mb="sm">"We walked into the neon light / chasing shadows through the night..."</Text>
+                <Text size="sm" fw={600} c="purple" mb="3px">Ending in "-ear" (Fear, Clear, Near)</Text>
+                <Text size="xs" c="dimmed">"Suddenly the path was clear / casting out our deepest fear..."</Text>
+              </Card>
+            )}
+
+            {activePanels.includes('atomic') && (
+              <Card withBorder shadow="sm" radius="md" p="md">
+                <Text fw={700} size="lg" mb="xs">📚 atomicamente </Text>
+                <Text size="sm" c="dimmed" mb="md">Keep these .......:</Text>
+              </Card>
+            )}
           </SimpleGrid>
         )}
-        
-        {/* SimpleGrid adjusts dynamically based on how many panels are pulled up */}
-        <SimpleGrid cols={{ base: 1, md: activePanels.length > 1 ? 2 : 1 }} spacing="lg">
-          
-          {/* PANEL A: THE LYRICS TEXT PAD */}
-          {activePanels.includes('lyrics') && (
-            <Card withBorder shadow="sm" radius="md" p="md">
-              <Group justify="space-between" mb="xs">
-                <Text fw={700} size="lg">Lyrics Workspace</Text>
-                <Badge color="gray" variant="outline">{lyricsText.split(/\s+/).filter(Boolean).length} words</Badge>
-              </Group>
-              
-              <Textarea
-                placeholder="Start writing your masterpiece lyrics here..."
-                minRows={12}
-                autosize
-                value={lyricsText}
-                onChange={(event) => setLyricsText(event.currentTarget.value)}
-                styles={{ input: { fontFamily: 'inherit', fontSize: '16px', lineHeight: '1.6' } }}
-              />
-            </Card>
-          )}
-
-          {/* PANEL B: GUITAR TABS CHART */}
-          {activePanels.includes('tabs') && (
-            <Card withBorder shadow="sm" radius="md" p="md">
-              <Text fw={700} size="lg" mb="sm">🎸 Basic Song Progressions</Text>
-              <Text size="sm" c="dimmed" mb="md">Common songwriter structural shapes:</Text>
-              
-              <Group mb="xs"><Badge color="teal">Verse</Badge> <Text size="sm" fw={500}>
-                <Textarea
-                placeholder="G - C - Em - D"
-                minRows={1}
-                autosize
-                value={chords}
-                onChange={(event) => setChords(event.currentTarget.value)}
-                styles={{ input: { fontFamily: 'inherit', fontSize: '16px', lineHeight: '1.6' } }}
-              />
-              </Text>
-              </Group>
-              
-              <Group mb="lg"><Badge color="indigo">Chorus</Badge> <Text size="sm" fw={500}>C - D - G - Em</Text></Group>
-              
-              <Text size="xs" fw={700} c="dimmed" mb="xs">TABLATURE CHEAT SHEET</Text>
-              <Code block ff="monospace" style={{ fontSize: '13px' }}>
-                E|---3---0---0---2---|{'\n'}
-                B|---3---1---0---3---|{'\n'}
-                G|---0---0---0---2---|{'\n'}
-                D|---0---2---2---0---|
-              </Code>
-            </Card>
-          )}
-
-          {/* PANEL C: RHYMING REFERENCE BOX */}
-          {activePanels.includes('rhymes') && (
-            <Card withBorder shadow="sm" radius="md" p="md">
-              <Text fw={700} size="lg" mb="xs">📚 Quick Rhyme Kit</Text>
-              <Text size="sm" c="dimmed" mb="md">Keep these matching sounds handy for inspiration:</Text>
-              
-              <Text size="sm" fw={600} c="blue" mb="3px">Ending in "-ight" (Light, Night, Flight)</Text>
-              <Text size="xs" c="dimmed" mb="sm">"We walked into the neon light / chasing shadows through the night..."</Text>
-              
-              <Text size="sm" fw={600} c="purple" mb="3px">Ending in "-ear" (Fear, Clear, Near)</Text>
-              <Text size="xs" c="dimmed">"Suddenly the path was clear / casting out our deepest fear..."</Text>
-            </Card>
-          )}
-
-             {/* PANEL D: new one to add a new feature  */}
-             {activePanels.includes('atomic') && (
-            <Card withBorder shadow="sm" radius="md" p="md">
-              <Text fw={700} size="lg" mb="xs">📚 atomicamente </Text>
-              <Text size="sm" c="dimmed" mb="md">Keep these .......:</Text>
-              
-              
-            </Card>
-          )}
-
-        </SimpleGrid>
       </AppShell.Main>
     </AppShell>
   );
 }
-
