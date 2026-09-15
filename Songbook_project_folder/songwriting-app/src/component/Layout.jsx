@@ -4,6 +4,10 @@ import { useState } from 'react';
 import { Header } from './Header';
 
 export default function Layout() {
+  const [title, setTitle] = useLocalStorage({
+    key: 'songbook-title',
+    defaultValue: '',
+  });
   const [opened, { toggle }] = useDisclosure();
   const isMobile = useMediaQuery('(max-width: 768px)');
   
@@ -49,6 +53,7 @@ export default function Layout() {
           const parsedData = JSON.parse(event.target.result);
           
           // 4. Update your application states safely
+          if (parsedData.title !== undefined) setTitle(parsedData.title);
           if (parsedData.lyrics !== undefined) setLyricsText(parsedData.lyrics);
           if (parsedData.chords !== undefined) setChords(parsedData.chords);
           
@@ -62,6 +67,39 @@ export default function Layout() {
   
     // 3. Open the browser file selection window
     fileInput.click();
+  };
+
+  const saveSongAsJson = () => {
+    const songData = {
+      title: title,
+      lyrics: lyricsText,
+      chords: chords,
+      savedAt: new Date().toISOString()
+    };
+  
+    const jsonString = JSON.stringify(songData, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    
+    // Clean up lyrics string to generate a readable filename
+    const cleanTitle = lyricsText
+      .trim()
+      .split(/\s+/)
+      .slice(0, 3)
+      .join('-')
+      .replace(/[^a-zA-Z0-9-]/g, '')
+      .toLowerCase();
+  
+    const filename = cleanTitle ? `${cleanTitle}.json` : 'untitled-song.json';
+  
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
 
@@ -78,7 +116,12 @@ export default function Layout() {
       padding="md"
     >
       {/* 1. TOP HEADER BAR */}
-      <Header opened={opened} toggle={toggle}/>
+      <Header 
+      opened={opened} 
+      toggle={toggle}
+      title={title}
+      setTitle={setTitle}
+      />
      
       {/* 2. SIDE MENU BAR BAR */}
       <AppShell.Navbar p="md">
@@ -140,7 +183,7 @@ export default function Layout() {
         
         <Text fw={700} size="sm" mb="md" c="violet">Save Open new Song panel </Text>
         <Badge size="xs" color="orange" variant="light">WIP</Badge>
-        <Button size="xs" color="blue" fullWidth mb="xs" onClick={() => alert('Save File functionality coming soon!')}>💾 Save Current Song</Button>
+        <Button size="xs" color="blue" fullWidth mb="xs" onClick={saveSongAsJson}>💾 Save Current Song</Button>
         <Button size="xs" color="teal" fullWidth onClick={openSongFromJson}>📂 Open Existing Song</Button>
       </AppShell.Aside>
 
