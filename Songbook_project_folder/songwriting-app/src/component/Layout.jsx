@@ -30,6 +30,42 @@ export default function Layout() {
       setActivePanels([...activePanels, panelName]);
     }
   };
+
+  const openSongFromJson = () => {
+    // 1. Create a hidden file input element
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.json';
+  
+    // 2. Listen for when you select a file
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+  
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          // 3. Parse the file contents back into a JavaScript object
+          const parsedData = JSON.parse(event.target.result);
+          
+          // 4. Update your application states safely
+          if (parsedData.lyrics !== undefined) setLyricsText(parsedData.lyrics);
+          if (parsedData.chords !== undefined) setChords(parsedData.chords);
+          
+          alert(`Successfully loaded: ${file.name}`);
+        } catch (error) {
+          alert('Error parsing the file. Please make sure it is a valid song JSON.');
+        }
+      };
+      reader.readAsText(file);
+    };
+  
+    // 3. Open the browser file selection window
+    fileInput.click();
+  };
+
+
+
   return (
     <AppShell
       header={{ height: 100 }}
@@ -52,11 +88,14 @@ export default function Layout() {
            
            <Badge size="xs" color="orange" variant="light">WIP</Badge>
          </Group>
-         
+
+         <Text fw={800} size="lg" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} style={{ whiteSpace: 'nowrap' }}>
+                  🎵 SONGBOOK Studio
+                </Text>
          <Button size="xs" color="blue" onClick={() => alert('Save File functionality coming soon!')}>
            💾 Save Song
          </Button>
-         <Button size="xs" color="teal" onClick={() => alert('Open File functionality coming soon!')}>
+         <Button size="xs" color="teal" onClick={openSongFromJson}>
            📂 Open Song
          </Button>
        </Stack>
@@ -98,10 +137,11 @@ export default function Layout() {
 
       {/* 3. RIGHT SIDEBAR (The Aside Drawer) */}
       <AppShell.Aside p="md">
+        
         <Text fw={700} size="sm" mb="md" c="violet">Save Open new Song panel </Text>
         <Badge size="xs" color="orange" variant="light">WIP</Badge>
         <Button size="xs" color="blue" fullWidth mb="xs" onClick={() => alert('Save File functionality coming soon!')}>💾 Save Current Song</Button>
-        <Button size="xs" color="teal" fullWidth onClick={() => alert('Open File functionality coming soon!')}>📂 Open Existing Song</Button>
+        <Button size="xs" color="teal" fullWidth onClick={openSongFromJson}>📂 Open Existing Song</Button>
       </AppShell.Aside>
 
       {/* 4. DYNAMIC MAIN WINDOW FRAME */}
