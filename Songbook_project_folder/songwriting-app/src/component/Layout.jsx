@@ -135,7 +135,7 @@ export default function Layout() {
          <Text fw={800} size="lg" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} style={{ whiteSpace: 'nowrap' }}>
                   🎵 SONGBOOK Studio
                 </Text>
-         <Button size="xs" color="blue" onClick={() => alert('Save File functionality coming soon!')}>
+         <Button size="xs" color="blue" onClick={saveSongAsJson}>
            💾 Save Song
          </Button>
          <Button size="xs" color="teal" onClick={openSongFromJson}>
