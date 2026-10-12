@@ -1,0 +1,34 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.main-container {
+  background-color:coral;
+  display: flex;
+  flex-direction: column; /* Dispone i componenti uno sotto l'altro */
+  justify-content: center; /* Centra verticalmente */
+  align-items: center;     /* Centra orizzontalmente */
+  min-height: 100vh;       /* Occupa il 100% dell'altezza dello schermo */
+  width: 100%;             /* Occupa tutta la larghezza disponibile */
+  box-sizing: border-box;
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+
+.sketch {
+  background-color: rgb(172, 176, 209);
+  border-radius: 20px;
+
+
+}
+.gallery {
+  background-color: rgb(172, 176, 209);
+  border-radius: 20px;
+
+
+}
+

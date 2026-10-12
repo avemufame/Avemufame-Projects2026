@@ -54,7 +54,7 @@ export default function Layout() {
           
           // 4. Update your application states safely
           if (parsedData.title !== undefined) setTitle(parsedData.title);
-          if (parsedData.lyrics !== undefined) setLyricsText(parsedData.lyrics);
+          if (parsedData.lyrics !== undefined) setLyricsText(parsedData.savedAt + parsedData.lyrics);
           if (parsedData.chords !== undefined) setChords(parsedData.chords);
           
           alert(`Successfully loaded: ${file.name}`);
@@ -83,7 +83,7 @@ export default function Layout() {
     const link = document.createElement('a');
     
     // Clean up lyrics string to generate a readable filename
-    const cleanTitle = lyricsText
+    const cleanTitle = title + new Date().toISOString()
       .trim()
       .split(/\s+/)
       .slice(0, 3)
