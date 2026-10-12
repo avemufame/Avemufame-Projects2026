@@ -1,7 +1,5 @@
-/* ==========================================================================
-   1. Reset & Stili Base
-   ========================================================================== */
-   * {
+/* Reset & Base Styles */
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -9,86 +7,165 @@
 
 body {
     font-family: sans-serif;
-    background-color: #fafafa;
-    color: #262626;
-}
-
-/* Container principale della sezione */
-.main {
     padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
-.board {
-    width: 100%;
-}
 
-/* ==========================================================================
-   2. Griglia Portfolio (Stile Pinterest / Masonry)
-   ========================================================================== */
 .portfolio-grid {
+
     column-count: 4;
     column-gap: 1.5rem;
-    width: 100%;
-    margin-top: 1rem;
-}
+  }
   
-.grid-item {
+  .grid-item {
     break-inside: avoid;
-    margin-bottom: 1.5rem; /* Funge da spaziatura verticale tra le righe */
-    background: #ffffff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
+    margin-bottom: 1.5rem; /* Acts as the row gap */
+  }
   
-.grid-item img {
+  .grid-item img {
     width: 100%;
-    height: auto; /* Mantiene le proporzioni originali delle immagini */
+    
+    height: auto; /* Keeps original aspect ratio */
     display: block;
-    border-radius: 6px;
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+  }
+
+
+
+.grid-item img:hover {
+    transform: scale(1.10);
 }
 
-/* Effetto Zoom morbido al passaggio del mouse (Solo su Desktop) */
-@media (hover: hover) {
-    .grid-item div:hover img {
-        transform: scale(1.05); /* Zoom leggermente ridotto per evitare sfocature */
-    }
-}
-
-/* Didascalia sotto l'immagine nella griglia principale */
 figcaption {
-    text-align: left;
+    text-align: center;
     width: 100%;
-    margin-top: 0.6rem;
+      
+    margin-top: 0.5rem;
     font-size: 0.9rem;
-    font-weight: 600;
-    color: #262626;
+    color: rgb(102, 102, 102);
 }
 
-/* ==========================================================================
-   3. Adattamento per Dispositivi Mobile (max-width: 768px)
-   ========================================================================== */
-@media screen and (max-width: 768px) {
-  
-    .main {
-        padding: 1rem;
-    }
 
+
+
+
+/* 1. Hide the lightbox by default */
+.lightbox {
+    /*display: none; */
+    display: flex; /* Always display flex, but hide it visually */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(68, 37, 62, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+     /* Hiding mechanics */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Prevents clicking links inside while hidden */
+  
+    /* Smooth transition for fade effect */
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  
+
+  
+  /* 3. Style the modal content window */
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 80%;
+
+     /* Start slightly scaled down */
+    transform: scale(0.85);
+    transition: transform 0.8s ease;
+  }
+
+
+
+
+    /* 2. Show the lightbox ONLY when it is targeted in the URL */
+.lightbox:target {
+    /* display: flex; */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* Re-enable clicks when visible */
+    }
+  
+
+ /* 4. Zoom the image to full size when parent is targeted */
+.lightbox:target .lightbox-content {
+    transform: scale(1.13);
+  }
+
+
+
+
+  .lightbox-content img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+  } 
+  
+  /* 4. Invisible link that covers the whole background to close on click */
+  .close-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+  }
+  
+  /* 5. The visible 'X' close button */
+  .close-btn {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: #fff;
+    font-size: 35px;
+    text-decoration: none;
+  }
+/* ==========================================================================
+   Responsive Constraints for Mobile Devices (max-width: 768px)
+   ========================================================================== */
+   @media screen and (max-width: 768px) {
+  
     .portfolio-grid {
-        /* Forza una sola colonna su smartphone per incolonnare i post verticalmente */
-        column-count: 1 !important;
-        display: block !important;
-        column-gap: 0;
+      /* Forza una sola colonna: le immagini si disporranno una sotto l'altra */
+      column-count: 1 !important;
+      display: block !important;
+      width: 100% !important;
     }
   
     .grid-item {
-        break-inside: avoid !important;
-        display: block !important;
-        width: 100% !important;
-        margin-bottom: 2rem !important; /* Più spazio verticale su mobile per respirare */
-        padding: 8px;
+      /* Evita che l'elemento si spezzi in modo strano durante lo scroll */
+      break-inside: avoid !important;
+      display: block !important;
+      width: 100% !important;
+      margin-bottom: 2rem !important; /* Aumenta lo spazio verticale tra una foto e l'altra */
     }
-}
+  
+    .grid-item img {
+      /* Forza l'immagine a prendersi tutta la larghezza dello schermo mobile */
+      width: 100% !important;
+      height: auto !important;
+    }
+  
+    /* Disabilita l'effetto hover che su mobile crea glitch grafici */
+    .grid-item img:hover {
+      transform: none !important;
+    }
+  
+    /* Impedisce alla lightbox di ingrandirsi oltre i bordi dello smartphone */
+    .lightbox:target .lightbox-content {
+      transform: scale(1) !important; 
+    }
+  }
+  
