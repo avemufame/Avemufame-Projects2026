@@ -290,7 +290,7 @@ export default function Layout() {
             </Tabs.Panel>
           </Tabs>
         ) : (
-          <Skeleton visible={isLoading} height={300}>
+          <Skeleton visible={isLoading} height={650}>
           <SimpleGrid cols={{ base: 1, md: activePanels.length > 1 ? 2 : 1 }} spacing="lg">
             {activePanels.includes('lyrics') && (
               <Card withBorder shadow="sm" radius="md" p="md">
