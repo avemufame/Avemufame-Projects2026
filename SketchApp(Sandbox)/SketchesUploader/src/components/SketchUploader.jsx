@@ -1,16 +1,57 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { 
+  TextInput, 
+  Select, 
+  Textarea, 
+  Button, 
+  Text, 
+  Stack, 
+  Box, 
+  Paper,
+  List
+} from '@mantine/core';
 
 const supabase = createClient(
     import.meta.env.VITE_SUPABASE_URL,
     import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-export default function SketchUploader() {
+export default function SketchUploader({ onUploadSuccess }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('commissions'); // 1. State for dividing project types
-    const [files, setFiles] = useState([]); // 2. Changed from null to an empty array
+    const [category, setCategory] = useState('commissions'); 
+    const [files, setFiles] = useState([]); 
+    const [isDragging, setIsDragging] = useState(false);
+
+    // Riferimento per attivare l'input di tipo file nascosto
+    const fileInputRef = useRef(null);
+
+    const handleDragOver = (e) => {
+      e.preventDefault();
+      setIsDragging(true);
+    };
+
+    const handleDragLeave = () => {
+      setIsDragging(false);
+    };
+
+    const handleDrop = (e) => {
+      e.preventDefault();
+      setIsDragging(false);
+      
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        const droppedFiles = Array.from(e.dataTransfer.files).filter(file => 
+          file.type.startsWith('image/')
+        );
+        
+        if (droppedFiles.length === 0) {
+          alert("Per favore, rilascia solo file di tipo immagine!");
+          return;
+        }
+        setFiles(droppedFiles);
+      }
+    };
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -18,7 +59,6 @@ export default function SketchUploader() {
       const trimmedTitle = title.trim();
       const trimmedDescription = description.trim();
 
-      // Form validation updates
       if (!trimmedTitle) {
         alert("Please enter a title before saving!");
         return; 
@@ -27,15 +67,13 @@ export default function SketchUploader() {
         alert("Please enter a description before saving!");
         return; 
       }
-      if (files.length === 0) { // 3. Updated check for multiple files
+      if (files.length === 0) { 
         alert("Seleziona almeno un'immagine!");
         return;
       }
 
-      // Temporary array to collect public URLs from storage
       const uploadedUrls = [];
 
-      // 4. Standard loop allows 'await' to upload files in sequential order
       for (const currentFile of files) {
         const fileExt = currentFile.name.split('.').pop();
         const fileName = `${Math.random()}.${fileExt}`;
@@ -47,7 +85,7 @@ export default function SketchUploader() {
 
         if (uploadError) {
           alert(`Errore caricamento immagine: ${uploadError.message}`);
-          return; // Halts the upload sequence if one breaks
+          return; 
         }
 
         const { data: { publicUrl } } = supabase.storage
@@ -57,16 +95,15 @@ export default function SketchUploader() {
         uploadedUrls.push(publicUrl);
       }
 
-      // 5. INSERT 1: Save the main parent record details first
       const { data: newProject, error: projectError } = await supabase
         .from('projects')
         .insert([{ 
           title: trimmedTitle, 
           description: trimmedDescription,
-          category: category // 'commissions' or 'sketches'
+          category: category 
         }])
         .select()
-        .single(); // Tells Supabase to return the newly generated object
+        .single(); 
   
       if (projectError) {
         console.error("Errore durante l'inserimento del progetto:", projectError.message);
@@ -74,20 +111,17 @@ export default function SketchUploader() {
         return;
       }
 
-      // Grab the generated primary key ID
       const projectId = newProject.id;
 
-      // 6. Format the gathered URLs into child rows linked by the foreign key
       const stepRecords = uploadedUrls.map((url, index) => {
         return {
           project_id: projectId,
-          step_number: index + 1, // Step 1, Step 2, Step 3...
+          step_number: index + 1, 
           image_url: url,
           caption: `Process image ${index + 1}`
         };
       });
 
-      // 7. INSERT 2: Batch save all steps into the subfolder table at once
       const { error: stepsError } = await supabase
         .from('project_steps')
         .insert(stepRecords);
@@ -98,63 +132,113 @@ export default function SketchUploader() {
       } else {
         alert("Progetto e tutti i relativi step salvati con successo!");
         
-        // Reset full form state back to initial values
         setTitle('');
         setDescription('');
         setCategory('commissions');
         setFiles([]); 
+        
+        if (onUploadSuccess) onUploadSuccess();
       }
     };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className='sketch'>
-        <div>
-          <label style={{ display: 'block', fontWeight: 'bold' }}>Title:</label>
-          <input 
-            type="text" 
+      <Paper 
+        p="xl" 
+        radius={20} 
+        
+        shadow="md"
+      >
+        <Stack spacing="md">
+          
+          <TextInput 
+            label="Title" 
+            placeholder="Inserisci il titolo"
             value={title} 
-            onChange={(e) => setTitle(e.target.value)} 
-            style={{ width: '100%', padding: '8px', fontSize: '16px', boxSizing: 'border-box', marginBottom: '10px' }}
+            onChange={(e) => setTitle(e.target.value)}
+            required
           />
-        </div>
 
-        {/* 8. NEW: Category dropdown input field */}
-        <div>
-          <label style={{ display: 'block', fontWeight: 'bold' }}>Category:</label>
-          <select 
-            value={category} 
-            onChange={(e) => setCategory(e.target.value)}
-            style={{ width: '100%', padding: '8px', fontSize: '16px', boxSizing: 'border-box', marginBottom: '10px' }}
-          >
-            <option value="commissions">Commission</option>
-            <option value="sketches">Sketch Process</option>
-          </select>
-        </div>
-
-        <div>
-          <label style={{ display: 'block', fontWeight: 'bold' }}>Description:</label>
-          <textarea 
-            value={description} 
-            onChange={(e) => setDescription(e.target.value)} 
-            placeholder="Write a longer description about your creative process here..." 
-            rows={5} 
-            style={{ width: '100%', padding: '8px', fontSize: '14px', resize: 'vertical', boxSizing: 'border-box', marginBottom: '10px' }}
+          <Select
+            label="Category"
+            value={category}
+            onChange={setCategory}
+            data={[
+              { value: 'commissions', label: 'Commission' },
+              { value: 'sketches', label: 'Sketch Process' },
+              { value: 'projects', label: 'Projects' },
+            ]}
           />
-        </div>
 
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', fontWeight: 'bold' }}>Images (Select multiple):</label>
-          <input 
-            type="file" 
-            accept="image/*"
-            multiple // 9. Enabled multi-selection capability
-            onChange={(e) => setFiles(Array.from(e.target.files))} // 10. Converted standard file list to modern JS Array
+          <Textarea
+            label="Description"
+            placeholder="Write a longer description about your creative process here..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            minRows={5}
+            autosize
+            required
           />
-        </div>
-      </div>
 
-      <button type="submit" style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>Save Project</button>
+          <Box>
+            <Text weight={500} size="sm" mb={4}>Images:</Text>
+            
+            <Box
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current.click()}
+              sx={(theme) => ({
+                border: isDragging ? `2px dashed ${theme.colors.blue[6]}` : `2px dashed ${theme.colors.gray[4]}`,
+                backgroundColor: isDragging ? theme.colors.blue[0] : theme.colors.gray[0],
+                borderRadius: theme.radius.md,
+                padding: theme.spacing.xl,
+                textAlign: 'center',
+                cursor: 'pointer',
+                transition: 'background-color 0.2s, border-color 0.2s',
+                '&:hover': {
+                  borderColor: theme.colors.blue[6],
+                  backgroundColor: theme.colors.gray[1],
+                }
+              })}
+            >
+              <Text size="md" color="dimmed">
+                Trascina le tue immagini qui o <Text as="span" color="blue" weight={700}>clicca per sfogliare</Text>
+              </Text>
+              <Text size="xs" color="dimmed" mt={4}>
+                (Puoi selezionare o trascinare più file contemporaneamente)
+              </Text>
+              
+              <input 
+                ref={fileInputRef}
+                type="file" 
+                accept="image/*"
+                multiple 
+                onChange={(e) => setFiles(Array.from(e.target.files))}
+                style={{ display: 'none' }}
+              />
+            </Box>
+
+            {files.length > 0 && (
+              <Paper withBorder p="xs" mt="sm" radius="sm" bg="gray.0">
+                <Text size="sm" weight={600} mb={4}>File pronti ({files.length}):</Text>
+                <List size="sm" color="dimmed">
+                  {files.map((file, index) => (
+                    <List.Item key={index}>
+                      {file.name} - {(file.size / 1024).toFixed(1)} KB
+                    </List.Item>
+                  ))}
+                </List>
+              </Paper>
+            )}
+          </Box>
+
+          <Button type="submit" size="md" color="blue" fullWidth mt="md">
+            Save Project
+          </Button>
+
+        </Stack>
+      </Paper> {/* Chiusura del tag Paper mancante aggiunta correttamente */}
     </form>
   );
 }

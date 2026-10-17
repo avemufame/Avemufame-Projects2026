@@ -1,18 +1,27 @@
-import { AppShell, Tabs, Burger, Group, NavLink, Text, SimpleGrid, Card, Textarea, Badge, Code, Button, Stack } from '@mantine/core';
+import { AppShell, Tabs, Burger, Group, NavLink, Text, SimpleGrid, Card, Textarea, Badge, Code, Button, Stack, Skeleton } from '@mantine/core';
 import { useDisclosure, useLocalStorage, useMediaQuery } from '@mantine/hooks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from './Header';
 
 export default function Layout() {
+ 
+
   const [title, setTitle] = useLocalStorage({
     key: 'songbook-title',
     defaultValue: '',
   });
   const [opened, { toggle }] = useDisclosure();
+  const [isLoading, setIsLoading] = useState(true);
+
+
   const isMobile = useMediaQuery('(max-width: 768px)');
   
   // Array state managing which frames are currently visible
-  const [activePanels, setActivePanels] = useState(['lyrics']); 
+  const [activePanels, setActivePanels] = useLocalStorage({
+    key: 'songbook-active-panel',
+    defaultValue: ['lyrics'],
+    getInitialValueInEffect: false
+  }); 
   
   // Simple state to hold your lyrics as you type them
   const [lyricsText, setLyricsText] = useLocalStorage({
@@ -21,7 +30,10 @@ export default function Layout() {
   });
 
   // Chords variable 
-  const [chords, setChords] = useState('');
+  const [chords, setChords] = useLocalStorage({
+    key: 'songbook-chords',
+    defaultValue: '',
+  });
 
   // Toggle state for the right songwriter tool drawer
   const [rightOpened, { toggle: toggleRight }] = useDisclosure();
@@ -34,6 +46,17 @@ export default function Layout() {
       setActivePanels([...activePanels, panelName]);
     }
   };
+
+
+  useEffect(() => {
+    // 1. Start a timer when the page loads
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); // 1000 milliseconds = 1 second delay
+  
+    // 2. Clean up the timer if the user leaves the page early
+    return () => clearTimeout(timer);
+  }, []); // 👈 Keeps your magic empty array so it still runs ONLY ONCE on load
 
   const openSongFromJson = () => {
     // 1. Create a hidden file input element
@@ -64,6 +87,7 @@ export default function Layout() {
       };
       reader.readAsText(file);
     };
+
   
     // 3. Open the browser file selection window
     fileInput.click();
@@ -100,6 +124,8 @@ export default function Layout() {
     
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+
+
   };
 
 
@@ -121,6 +147,7 @@ export default function Layout() {
       toggle={toggle}
       title={title}
       setTitle={setTitle}
+      isLoading={isLoading}
       />
      
       {/* 2. SIDE MENU BAR BAR */}
@@ -204,6 +231,7 @@ export default function Layout() {
                   <Text fw={700} size="lg">Lyrics Workspace</Text>
                   <Badge color="gray" variant="outline">{lyricsText.split(/\s+/).filter(Boolean).length} words</Badge>
                 </Group>
+               
                 <Textarea
                   placeholder="Start writing your masterpiece lyrics here..."
                   minRows={12}
@@ -212,6 +240,7 @@ export default function Layout() {
                   onChange={(event) => setLyricsText(event.currentTarget.value)}
                   styles={{ input: { fontFamily: 'inherit', fontSize: '16px', lineHeight: '1.6' } }}
                 />
+               
               </Card>
             </Tabs.Panel>
 
@@ -252,7 +281,7 @@ export default function Layout() {
                 <Text size="xs" c="dimmed">"Suddenly the path was clear / casting out our deepest fear..."</Text>
               </Card>
             </Tabs.Panel>
-
+            
             <Tabs.Panel value="atomic" pt="xs">
               <Card withBorder shadow="sm" radius="md" p="md">
                 <Text fw={700} size="lg" mb="xs">📚 atomicamente </Text>
@@ -261,6 +290,7 @@ export default function Layout() {
             </Tabs.Panel>
           </Tabs>
         ) : (
+          <Skeleton visible={isLoading} height={300}>
           <SimpleGrid cols={{ base: 1, md: activePanels.length > 1 ? 2 : 1 }} spacing="lg">
             {activePanels.includes('lyrics') && (
               <Card withBorder shadow="sm" radius="md" p="md">
@@ -268,6 +298,7 @@ export default function Layout() {
                   <Text fw={700} size="lg">Lyrics Workspace</Text>
                   <Badge color="gray" variant="outline">{lyricsText.split(/\s+/).filter(Boolean).length} words</Badge>
                 </Group>
+               
                 <Textarea
                   placeholder="Start writing your masterpiece lyrics here..."
                   minRows={12}
@@ -276,7 +307,10 @@ export default function Layout() {
                   onChange={(event) => setLyricsText(event.currentTarget.value)}
                   styles={{ input: { fontFamily: 'inherit', fontSize: '16px', lineHeight: '1.6' } }}
                 />
-              </Card>
+              
+                
+              </Card>  
+              
             )}
 
             {activePanels.includes('tabs') && (
@@ -324,6 +358,7 @@ export default function Layout() {
               </Card>
             )}
           </SimpleGrid>
+          </Skeleton>
         )}
       </AppShell.Main>
     </AppShell>

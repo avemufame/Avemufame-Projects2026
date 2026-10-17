@@ -140,3 +140,29 @@ figcaption {
         max-height: 90vh;
     }
 }
+/* Stile base dello scheletro */
+.skeleton-card {
+    background: #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    break-inside: avoid;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Animazione "shimmer" (impulso di luce) */
+.skeleton-pulse {
+    animation: skeleton-loading 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: #f0f0f0;
+    }
+    50% {
+        background-color: #e0e0e0;
+    }
+    100% {
+        background-color: #f0f0f0;
+    }
+}

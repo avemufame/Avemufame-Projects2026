@@ -54,7 +54,7 @@ function PortfolioPage({ items }) {
 </div>
 
 
-      <div id="gallery" className="portfolio-grid">
+      <div id="gallery" className="grid-item">
 
       {category === 'main' && (
             <>

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { AppShell, Group, Burger, Text, TextInput, NumberInput, Select, Button, UnstyledButton, Menu, ActionIcon } from '@mantine/core';
+import { AppShell, Group, Burger, Text, TextInput, NumberInput, Select, Button, UnstyledButton, Menu, ActionIcon, Skeleton } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
 
-export function Header({ opened, toggle, title, setTitle }) {
+export function Header({ opened, toggle, title, setTitle, isLoading }) {
   
   // State for your Phase 2 Data
 
@@ -96,10 +96,12 @@ export function Header({ opened, toggle, title, setTitle }) {
               </Text>
             </UnstyledButton>
           </Group>
-
+         
           {/* Middle Element: Perfectly Centered Title Input (Desktop and Mobile) */}
           <div className="mobile-title-container" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', zIndex: 1 }}>
-            <TextInput
+            
+          <Skeleton visible={isLoading}>
+          <TextInput
               value={title}
               onChange={(e) => setTitle(e.currentTarget.value)}
               placeholder="Song Title"
@@ -114,8 +116,10 @@ export function Header({ opened, toggle, title, setTitle }) {
                   textAlign: 'center',
                 },
               }}
-            />
+            />     </Skeleton>
+           
           </div>
+     
           
           {/* Right Element: Mobile-Only Settings Cog */}
           <Group hiddenFrom="sm">
@@ -143,6 +147,7 @@ export function Header({ opened, toggle, title, setTitle }) {
                 <Menu.Label>Edit Song</Menu.Label>
                 
                 {/* BPM Fields */}
+                
                 <div style={{ padding: '4px 6px' }}>
                   <Text size="xs" fw={700} c="dimmed" mb={2}>BPM</Text>
                   <Group gap={4} wrap="nowrap">
@@ -150,6 +155,7 @@ export function Header({ opened, toggle, title, setTitle }) {
                     <Button size="xs" variant="light" onClick={handleTapTempo}>Tap</Button>
                   </Group>
                 </div>
+                
 
                 <Menu.Divider />
 
@@ -171,6 +177,7 @@ export function Header({ opened, toggle, title, setTitle }) {
           </Group>
 
           {/* Desktop Right Alignment Spacer */}
+         
           <div style={{ width: '1px' }} visibleFrom="sm" />
         </Group>
         
@@ -186,10 +193,14 @@ export function Header({ opened, toggle, title, setTitle }) {
           <Text size="xs" fw={600} c="dimmed">•</Text>
           <Text size="xs" fw={700} c="cyan">{songKey}</Text>
         </Group>
-
+       
         {/* UNTOUCHED ORIGINAL DESKTOP CONTROLS ROW */}
+      
         <Group visibleFrom="sm" gap="xs" wrap="nowrap" style={{ transform: 'scale(0.85)', transformOrigin: 'right center' }}>
+        <Skeleton visible={isLoading}>
           <Group gap={2} wrap="nowrap" style={{ background: 'var(--mantine-color-gray-1)', padding: '2px 6px', borderRadius: '6px' }}>
+            
+            
             <NumberInput
               value={bpm}
               onChange={(val) => setBpm(Number(val))}
@@ -204,12 +215,14 @@ export function Header({ opened, toggle, title, setTitle }) {
                  controls: {display: 'flex'}
                 }}
             />
+            
             <Text size="xs" c="dimmed" fw={700} pr={4}>BPM</Text>
             <Button size="xs" compact="true" variant="light" color="blue" onClick={handleTapTempo} styles={{ root: { padding: '0 8px', height: '24px' } }}>
               Tap
             </Button>
           </Group>
-
+          </Skeleton>
+          <Skeleton visible={isLoading}>
           <Select
             value={timeSig}
             onChange={setTimeSig}
@@ -229,8 +242,8 @@ export function Header({ opened, toggle, title, setTitle }) {
                 height: '28px',
               },
             }}
-          />
-
+          /></Skeleton>
+          <Skeleton visible={isLoading}>
           <Select
             value={songKey}
             onChange={setSongKey}
@@ -255,9 +268,10 @@ export function Header({ opened, toggle, title, setTitle }) {
               },
             }}
           />
+          </Skeleton>
         </Group>
 
-      </Group>
+      </Group> 
     </AppShell.Header>
   );
 }

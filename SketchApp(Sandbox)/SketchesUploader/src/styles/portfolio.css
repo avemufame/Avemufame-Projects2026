@@ -1,0 +1,142 @@
+/* ==========================================================================
+   1. Reset & Stili Base
+   ========================================================================== */
+   * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #fafafa;
+    color: #262626;
+    padding: 2rem;
+}
+
+/* Container principale della sezione */
+.main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.board {
+    width: 100%;
+}
+
+/* ==========================================================================
+   2. Griglia Portfolio (Stile Pinterest / Masonry)
+   ========================================================================== */
+.portfolio-grid {
+    column-count: 4;
+    column-gap: 1.5rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+  
+.grid-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem; /* Funge da spaziatura verticale tra le righe */
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+  
+.grid-item img {
+    width: 100%;
+    height: auto; /* Mantiene le proporzioni originali delle immagini */
+    display: block;
+    border-radius: 6px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Effetto Zoom morbido al passaggio del mouse (Solo su Desktop) */
+@media (hover: hover) {
+    .grid-item div:hover img {
+        transform: scale(1.05);
+    }
+}
+
+/* Didascalia sotto l'immagine nella griglia principale */
+figcaption {
+    text-align: center;
+    width: 100%;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: rgb(102, 102, 102);
+}
+
+/* ==========================================================================
+   3. Stili di Supporto per il tuo Lightbox Custom (SlideContainer)
+   ========================================================================== */
+
+/* Forza il contenitore della foto e dei children a centrarsi e non sforare */
+.yarl__picture_container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    max-height: 85vh;
+    margin: auto;
+}
+
+/* RIPRISTINO CRUCIALE: Impedisce alle foto di diventare giganti o strabordare */
+.yarl__picture_container img, 
+.yarl__slide_image {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 75vh !important; /* Ridotto leggermente per lasciare spazio al testo sotto */
+    object-fit: contain !important;
+    border-radius: 4px;
+}
+
+/* La tua barra del titolo agganciata e bloccata sotto l'immagine */
+.my-picture-attached-bar {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.8rem;
+    color: #ffffff;
+}
+
+.my-picture-attached-bar h4 {
+    font-size: 1.1rem;
+    font-weight: normal;
+    margin: 0;
+}
+
+/* ==========================================================================
+   4. Adattamento per Dispositivi Mobile (max-width: 768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+  
+    .main {
+        padding: 1rem;
+    }
+
+    .portfolio-grid {
+        column-count: 1 !important;
+        display: block !important;
+        column-gap: 0;
+    }
+  
+    .grid-item {
+        break-inside: avoid !important;
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 2rem !important;
+        padding: 8px;
+    }
+
+    .grid-item img:hover {
+        transform: none !important;
+    }
+
+    .yarl__picture_container {
+        max-width: 95%;
+        max-height: 90vh;
+    }
+}
